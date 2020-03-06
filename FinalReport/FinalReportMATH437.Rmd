@@ -1,0 +1,215 @@
+---
+pdf_document: default
+output: pdf_document
+html_document: default
+header-includes: \usepackage{amsmath,calc}
+---
+
+\begin{center}
+\huge{Dank Title Here}
+
+\large{Aidan Dykstal, Edward Hammond, \& Lilia James} \\
+\large{May $4^{\text{th}}$, 2020}
+\end{center}
+
+```{r setup, include=FALSE}
+# KnitR Setup for RMarkdown
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# 1 \hspace{0.25cm} Introduction
+[//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+[//]: 1) Introduce the Data & the Data Source             %
+[//]: 2) Introduce Clear Research Questions               %
+[//]: 3) Preview the Model that will be used to Solve     %
+[//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+DANKNUGGETS.
+
+\newpage
+
+# 2 \hspace{0.25cm} The STRATEGY-ONE-GOES-HERE Approach
+## 2.1 \hspace{0.25cm} Assumptions
+[//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+[//]: 1) Clearly Explain Assumptions Needed for Validity  %
+[//]: 2) Discuss Limitations of the Approach              %
+[//]: 3) Preview the Checks of Assumptions/Limitations    %
+[//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+DANKNUGGIES. 
+
+\newpage
+
+## 2.2 \hspace{0.25cm} Model Construction Methods
+[//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+[//]: 1) Describe Procedures to Construct the Model       %
+[//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+DANKNUGGIES.
+
+## 2.3 \hspace{0.25cm} Application to the STUDY-GOES-HERE 
+[//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+[//]: 1) Explain Model's Answers to Research Questions    %
+[//]: 2) Contextualize Assumptions and Limitations to     %
+[//]:    the Problem of Interest                          %
+[//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+DANKNUGGIES.
+
+## 2.4 \hspace{0.25cm} Model Limitations \& Appropriateness 
+[//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+[//]: 1) Discuss the Limitations of this Approach as Seen %
+[//]:    in the Results                                   %
+[//]: 2) Carefully Check Model Assumptions and Validity:  %
+[//]:    e.g., if Using Regression:                       %
+[//]:       i) Thoroughly Examine Model Appropriateness   %
+[//]:       ii) Plot Residuals vs. Fitted Values          %
+[//]:       iii) Identify High-Leverage Points            %
+[//]:       iv) Identify Influential Points. Fit the      %
+[//]:           Model with/without Influential Points     %
+[//]:       v) Identify any Outliers                      %
+[//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+DANKNUGGIES.
+
+\newpage
+
+# 3 \hspace{0.25cm} The STRATEGY-THREE-GOES-HERE Approach
+## 3.1 \hspace{0.25cm} Assumptions
+[//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+[//]: 1) Clearly Explain Assumptions Needed for Validity  %
+[//]: 2) Discuss Limitations of the Approach              %
+[//]: 3) Preview the Checks of Assumptions/Limitations    %
+[//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+DANKNUGGIES. 
+
+## 3.2 \hspace{0.25cm} Model Construction Methods
+[//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+[//]: 1) Describe Procedures to Construct the Model       %
+[//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+DANKNUGGIES.
+
+## 3.3 \hspace{0.25cm} Application to the STUDY-GOES-HERE 
+[//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+[//]: 1) Explain Model's Answers to Research Questions    %
+[//]: 2) Contextualize Assumptions and Limitations to     %
+[//]:    the Problem of Interest                          %
+[//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+DANKNUGGIES.
+
+## 3.4 \hspace{0.25cm} Model Limitations \& Appropriateness 
+[//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+[//]: 1) Discuss the Limitations of this Approach as Seen %
+[//]:    in the Results                                   %
+[//]: 2) Carefully Check Model Assumptions and Validity:  %
+[//]:    e.g., if Using Regression:                       %
+[//]:       i) Thoroughly Examine Model Appropriateness   %
+[//]:       ii) Plot Residuals vs. Fitted Values          %
+[//]:       iii) Identify High-Leverage Points            %
+[//]:       iv) Identify Influential Points. Fit the      %
+[//]:           Model with/without Influential Points     %
+[//]:       v) Identify any Outliers                      %
+[//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+DANKNUGGIES.
+
+\newpage
+
+# 4 \hspace{0.25cm} The STRATEGY-THREE-GOES-HERE Approach
+## 4.1 \hspace{0.25cm} Assumptions
+[//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+[//]: 1) Clearly Explain Assumptions Needed for Validity  %
+[//]: 2) Discuss Limitations of the Approach              %
+[//]: 3) Preview the Checks of Assumptions/Limitations    %
+[//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+DANKNUGGIES. 
+
+## 4.2 \hspace{0.25cm} Model Construction Methods
+[//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+[//]: 1) Describe Procedures to Construct the Model       %
+[//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+DANKNUGGIES.
+
+## 4.3 \hspace{0.25cm} Application to the STUDY-GOES-HERE 
+[//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+[//]: 1) Explain Model's Answers to Research Questions    %
+[//]: 2) Contextualize Assumptions and Limitations to     %
+[//]:    the Problem of Interest                          %
+[//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+DANKNUGGIES.
+
+## 4.4 \hspace{0.25cm} Model Limitations \& Appropriateness 
+[//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+[//]: 1) Discuss the Limitations of this Approach as Seen %
+[//]:    in the Results                                   %
+[//]: 2) Carefully Check Model Assumptions and Validity:  %
+[//]:    e.g., if Using Regression:                       %
+[//]:       i) Thoroughly Examine Model Appropriateness   %
+[//]:       ii) Plot Residuals vs. Fitted Values          %
+[//]:       iii) Identify High-Leverage Points            %
+[//]:       iv) Identify Influential Points. Fit the      %
+[//]:           Model with/without Influential Points     %
+[//]:       v) Identify any Outliers                      %
+[//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+DANKNUGGIES.
+
+\newpage
+
+# 5 \hspace{0.25cm} Conclusions
+[//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+[//]: 1) Create a Hollistic Summary of the Models and     %
+[//]:    Compare them Qualitatively and Quantitatively    %
+[//]: 2) If Appropriate, Choose a Superior Method and     %
+[//]:    Review Results, Appropriateness, and Limitations %
+[//]: 3) Draw Collective Conclusions between the Methods  %
+[//]:    and Justify Results/Limitations/Implications by  %
+[//]:    Referencing the Review of the Analysis.          %
+[//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+DANKNUGGIES.
+
+\newpage
+
+# Appendix
+[//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+[//]: 1) Show R Code for All Computer Output/Results      %
+[//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+In this appendix, we feature the \texttt{R} code used to generate the results and visualizations featured in this report. We will feature four primary sections for code: (1) data collection and cleaning, (2) STRATEGY-ONE model selection and analysis, (3) STRATEGY-TWO model selection and analysis, \& (4) STRATEGY-THREE model selection and analysis. 
+
+## Data Collection \& Cleaning
+SUMMARY. Comments in the code highlight specific tasks.
+```{r, eval=FALSE}
+# Ca$h Money
+```
+
+\newpage
+
+## STRATEGY-ONE
+SUMMARY. Again, comments in the code reveal specific tasks. 
+```{r, eval=FALSE}
+# Ca$h Money
+```
+
+\newpage
+
+## STRATEGY-TWO
+SUMMARY. Again, comments in the code reveal specific tasks. 
+```{r, eval=FALSE}
+# Ca$h Money
+```
+
+\newpage
+
+## STRATEGY-THREE
+SUMMARY. Again, comments in the code reveal specific tasks. 
+```{r, eval=FALSE}
+# Ca$h Money
+```

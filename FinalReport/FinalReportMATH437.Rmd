@@ -187,7 +187,8 @@ In this appendix, we feature the \texttt{R} code used to generate the results an
 ## Data Collection \& Cleaning
 SUMMARY. Comments in the code highlight specific tasks.
 ```{r, eval=FALSE}
-# Ca$h Money
+# Read the Pima Indians Diabetes Data Source
+BigChungus <- read.csv('Diabetes.csv', header = TRUE)
 ```
 
 \newpage

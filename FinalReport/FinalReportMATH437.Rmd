@@ -24,8 +24,13 @@ knitr::opts_chunk$set(echo = TRUE)
 [//]: 3) Preview the Model that will be used to Solve     %
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In this project, we choose 
+In this project, we choose to focus on a dataset which includes information regarding people of the Pima Indian Tribe and their relationship to diabetes. The dataset contains ___ observations over __ variables. The variables are as follow:
 
+\begin{ennumerate}
+
+\item Diabetic status - This categorical variable 
+
+\end{ennumerate}
 \newpage
 
 # 2 \hspace{0.25cm} The STRATEGY-ONE-GOES-HERE Approach
@@ -187,8 +192,7 @@ In this appendix, we feature the \texttt{R} code used to generate the results an
 ## Data Collection \& Cleaning
 SUMMARY. Comments in the code highlight specific tasks.
 ```{r, eval=FALSE}
-# Read the Pima Indians Diabetes Data Source
-BigChungus <- read.csv('Diabetes.csv', header = TRUE)
+# Ca$h Money
 ```
 
 \newpage

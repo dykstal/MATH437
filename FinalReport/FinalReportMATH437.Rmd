@@ -24,7 +24,7 @@ knitr::opts_chunk$set(echo = TRUE)
 [//]: 3) Preview the Model that will be used to Solve     %
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-DANKNUGGETS.
+In this project, we choose 
 
 \newpage
 

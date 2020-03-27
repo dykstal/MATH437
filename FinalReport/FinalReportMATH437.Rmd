@@ -24,16 +24,24 @@ knitr::opts_chunk$set(echo = TRUE)
 [//]: 3) Preview the Model that will be used to Solve     %
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In this project, we choose to focus on a dataset which includes information regarding people of the Pima Indian Tribe and their relationship to diabetes. The dataset contains ___ observations over __ variables. The variables are as follow:
+In this project, we choose to focus on a dataset which includes information regarding people of the Pima Indian Tribe and their relationship to diabetes. The dataset contains 768 observations over 9 variables. The variables are as follow:
 
 \begin{ennumerate}
 
-\item Diabetic status - This categorical variable 
+\item Number of times pregnant -
+\item Plasma glucose concentration at two hours in oral glucose tolerance test
+\item Diastolic blood pressure in mm/hg
+\item Tricep skinfold thickness in mm
+\item Two hour serum insulin concentration $\mu/ml$
+\item Body Mass Index kg/$m^2$ 
+\item Diabetes pedigree function
+\item Age in years
+\item Diabetic status - This categorical variable
 
 \end{ennumerate}
 \newpage
 
-# 2 \hspace{0.25cm} The STRATEGY-ONE-GOES-HERE Approach
+# 2 \hspace{0.25cm} The Bayes Classifier Approach
 ## 2.1 \hspace{0.25cm} Assumptions
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 [//]: 1) Clearly Explain Assumptions Needed for Validity  %
@@ -79,7 +87,7 @@ DANKNUGGIES.
 
 \newpage
 
-# 3 \hspace{0.25cm} The STRATEGY-THREE-GOES-HERE Approach
+# 3 \hspace{0.25cm} The Logistic Regression Approach
 ## 3.1 \hspace{0.25cm} Assumptions
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 [//]: 1) Clearly Explain Assumptions Needed for Validity  %
@@ -123,7 +131,7 @@ DANKNUGGIES.
 
 \newpage
 
-# 4 \hspace{0.25cm} The STRATEGY-THREE-GOES-HERE Approach
+# 4 \hspace{0.25cm} The $k$-Nearest Neighbors Approach
 ## 4.1 \hspace{0.25cm} Assumptions
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 [//]: 1) Clearly Explain Assumptions Needed for Validity  %

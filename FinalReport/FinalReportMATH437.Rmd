@@ -39,6 +39,10 @@ In this project, we choose to focus on a dataset which includes information rega
 \item Diabetic status - This categorical variable
 
 \end{enumerate}
+Research question: how accurately can we predict someone's diabetic status from the other variables? Do different classification models make a noticeable difference?
+
+Models: QDA, LR, kNN.
+
 \newpage
 
 # 2 \hspace{0.25cm} The Quadratic Discriminant Analysis Approach
@@ -68,6 +72,20 @@ DANKNUGGIES.
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 DANKNUGGIES.
+
+RESULTS:
+```
+   classPredictions
+      0   1
+  0 347 153
+  1  52 216
+[1] 0.2669271
+   classPredictions
+      0   1
+  0 341 159
+  1  60 208
+[1] 0.2851562
+```
 
 ## 2.4 \hspace{0.25cm} Model Limitations \& Appropriateness 
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -113,6 +131,20 @@ DANKNUGGIES.
 
 DANKNUGGIES.
 
+RESULTS:
+```
+ class
+      0   1
+  0 445  55
+  1 112 156
+[1] 0.2174479
+   pcv
+      0   1
+  0 443  57
+  1 114 154
+[1] 0.2226562
+```
+
 ## 3.4 \hspace{0.25cm} Model Limitations \& Appropriateness 
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 [//]: 1) Discuss the Limitations of this Approach as Seen %
@@ -156,6 +188,21 @@ DANKNUGGIES.
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 DANKNUGGIES.
+
+RESULTS:
+```
+[1] 21
+   FinalFit
+      0   1
+  0 455  45
+  1 116 152
+[1] 0.2096354
+   pcv
+      1   2
+  0 440  60
+  1 126 142
+[1] 0.2421875
+```
 
 ## 4.4 \hspace{0.25cm} Model Limitations \& Appropriateness 
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -203,8 +250,6 @@ SUMMARY. Comments in the code highlight specific tasks.
 # Collect the Pima Indian Diabetes Data into a Dataframe
 BigChungus <- read.csv('Diabetes.csv', header = TRUE)
 ```
-
-\newpage
 
 ## Quadratic Discriminant Analysis
 SUMMARY. Again, comments in the code reveal specific tasks. 
@@ -322,58 +367,85 @@ misclassRate
 ## $p$-Fold $k$-Nearest Neighbors
 SUMMARY. Again, comments in the code reveal specific tasks. 
 ```{r, eval=FALSE}
-# Load the Classifcation Library
+# Load the Classifcation Library to Use kNN
 library(class)
 
-# Make log scale
-kgrid <- 10^seq(.5,2.5,length.out = 20)
-kgrid <- floor(kgrid)
-MCR <- rep(0,20)
+# Select Potential Values of k (for kNN) on a Log Scale
+# Go from k = sqrt(10) to 10^{2.5}
+kGrid <- 10^seq(0.5, 2.5, length.out = 20)
+kGrid <- floor(kGrid)
+MCR <- rep(0, length(kGrid))
 
-folds <- sample(c(1:nrow(BigChungus)),replace = FALSE)
-foldind <- seq(1,768,length.out = 11)
-foldind <- floor(foldind)
+# Find the Indices for the 10 Folds for p-Fold CV
+n <- nrow(BigChungus)
+p <- 10
+folds <- sample(c(1:n),replace = FALSE)
+foldInds <- seq(1, n, length.out = p + 1)
+foldInds <- floor(foldInds)
 
-# Make test-train splits
-for(i in 1:length(kgrid)){
-MCRS <- rep(0,10) 
-  for(j in 1:10){
-    testind <- foldind[j]:foldind[j+1]
-  test <- BigChungus[testind,]
-  train <- BigChungus[-testind,]
-    fit <- knn(train, test, cl = train[,9], k=kgrid[i])
+# Estimate the Mean Misclassification Rate for Each Value
+# of k in the kGrid for Each of the p Folds
+for(i in 1:length(kGrid)){
+  MCRS <- rep(0, p) 
+  for(j in 1:p){
+    testInds <- foldInds[j]:foldInds[j + 1]
+    test <- BigChungus[testInds,]
+    train <- BigChungus[-testInds,]
+    fit <- knn(train,
+               test,
+               cl = train[,9],
+               k = kGrid[i])
     
-#Construct Confusion Matrix
-Confusion <- table(test[,9],fit)
-right <- sum(diag(Confusion))
-total <- sum(Confusion)
+    # Construct Confusion Matrix
+    Confusion <- table(test[,9], fit)
 
-# Misclassification Rate
-
-MCRS[j] <- 1 - (right/total)
-    
+    # Estimate the Misclassification Rate
+    right <- sum(diag(Confusion))
+    total <- sum(Confusion)
+    MCRS[j] <- 1 - (right/total)
   }
-MCR[i] <- mean(MCRS)
-}
-theRightK <- which.min(MCR)
-KBest <- kgrid[theRightK]
-KBest
-
   
-# New fit of entire Dataset with k =21
+  # Get the Mean Misclassification Rate Over the Folds
+  MCR[i] <- mean(MCRS)
+}
 
-FinalFit = knn(BigChungus, BigChungus, cl = BigChungus[,9], k = KBest)
-
-Confusion <- table(BigChungus[,9],FinalFit)
+# Select the Value of k (for kNN) that Minimizes the
+# Mean Misclassification Rate Over the p Folds
+theRightK <- which.min(MCR)
+kBest <- kGrid[theRightK]
+kBest
+  
+# Fit to the Entire Data Set with the Optimal k
+FinalFit = knn(BigChungus,
+               BigChungus,
+               cl = BigChungus[,9],
+               k = kBest)
+Confusion <- table(BigChungus[,9], FinalFit)
 Confusion
+
+# Estimate the Optimal Misclassification Rate
 right <- sum(diag(Confusion))
 total <- sum(Confusion)
-
-# Misclassification Rate
-
 MCR <- 1 - (right/total)
 MCR
 
+# Fit with Leave-One-Out Cross Validation and Optimal k
+pcv <- rep(0, n)
+for (i in 1:n) {
+  fit <- knn(BigChungus[-i,],
+             BigChungus[i,],
+             cl = BigChungus[-i, 9],
+             k = kBest)
+  pcv[i] <- fit
+}
 
+# Compute the Confusion Matrix
+Confusion <- table(BigChungus[,9], pcv)
+Confusion
 
+# Estimate the Optimal Misclassification Rate
+right <- sum(diag(Confusion))
+total <- sum(Confusion)
+MCR <- 1 - (right/total)
+MCR
 ```

@@ -26,7 +26,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 In this project, we choose to focus on a dataset which includes information regarding people of the Pima Indian Tribe and their relationship to diabetes. The dataset contains 768 observations over 9 variables. The variables are as follow:
 
-\begin{ennumerate}
+\begin{enumerate}
 
 \item Number of times pregnant -
 \item Plasma glucose concentration at two hours in oral glucose tolerance test
@@ -38,7 +38,7 @@ In this project, we choose to focus on a dataset which includes information rega
 \item Age in years
 \item Diabetic status - This categorical variable
 
-\end{ennumerate}
+\end{enumerate}
 \newpage
 
 # 2 \hspace{0.25cm} The Bayes Classifier Approach
@@ -49,7 +49,7 @@ In this project, we choose to focus on a dataset which includes information rega
 [//]: 3) Preview the Checks of Assumptions/Limitations    %
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-DANKNUGGIES. 
+DANKNUGGIES.
 
 \newpage
 
@@ -209,7 +209,11 @@ BigChungus <- read.csv('Diabetes.csv', header = TRUE)
 ## STRATEGY-ONE
 SUMMARY. Again, comments in the code reveal specific tasks. 
 ```{r, eval=FALSE}
-# Ca$h Money
+# Bring in the MASS Library for QDA
+library(MASS)
+
+# Fit the QDA Model to the Diabetes Data
+fit
 ```
 
 \newpage

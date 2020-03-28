@@ -41,7 +41,7 @@ In this project, we choose to focus on a dataset which includes information rega
 \end{enumerate}
 \newpage
 
-# 2 \hspace{0.25cm} The Bayes Classifier Approach
+# 2 \hspace{0.25cm} The Quadratic Discriminate Analysis Approach
 ## 2.1 \hspace{0.25cm} Assumptions
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 [//]: 1) Clearly Explain Assumptions Needed for Validity  %
@@ -206,7 +206,7 @@ BigChungus <- read.csv('Diabetes.csv', header = TRUE)
 
 \newpage
 
-## STRATEGY-ONE
+## Quadratic Discriminate Analysis
 SUMMARY. Again, comments in the code reveal specific tasks. 
 ```{r, eval=FALSE}
 # Bring in the MASS Library for QDA
@@ -218,15 +218,89 @@ fit
 
 \newpage
 
-## STRATEGY-TWO
+## Logistic Regression
 SUMMARY. Again, comments in the code reveal specific tasks. 
 ```{r, eval=FALSE}
-# Ca$h Money
+# Load the Data
+BigChungus <- read.csv('Diabetes.csv', header = TRUE)
+
+# Begin Classifying by Logistic Regression
+library(nnet)
+lr <- multinom(isDiabetic ~., data = BigChungus, trace=FALSE, maxit = 10000)
+coe <- summary(lr)$coefficients
+LittleChungus <- BigChungus[-9]
+nman <- t(LittleChungus)
+logodds <- coe[1] + coe[-1]%*%nman
+logodds <- cbind(0, t(logodds))
+class <- apply(logodds, 1, which.max)
+class <- class - 1
+class
+
+#Construct Confusion Matrix
+Confusion <- table(BigChungus[,9],class)
+Confusion
+right <- 0
+total <- 0
+
+# Calculate Misclassification Rate
+for(i in 1:nrow(Confusion)){
+  for(j in 1:ncol(Confusion)){
+    if(i == j){
+      right <- right + Confusion[i,j]
+      total <- total + Confusion[i,j]
+    }
+    else{
+      total <- total + Confusion[i,j]
+    }
+      
+  }
+}
+
+MCR <- 1 - (right/total)
+MCR
+
+# Now try LOOCV
+
+n <- length(BigChungus$isDiabetic)
+pcv <- rep(0,n)
+
+for (i in 1:n) {
+  lr <- multinom(isDiabetic~., data = BigChungus[-i,], trace=FALSE, maxit = 10000)
+  coe <- summary(lr)$coefficients
+  tman <- t(BigChungus[i,-9])
+  logodds <- coe[1] + coe[-1]%*%tman
+  logodds <- cbind(0, t(logodds))
+  pcv[i] <- which.max(logodds) - 1
+}
+
+#Construct Confusion Matrix
+Confusion <- table(BigChungus[,9],pcv)
+Confusion
+right <- 0
+total <- 0
+
+# Misclassification Rate
+for(i in 1:nrow(Confusion)){
+  for(j in 1:ncol(Confusion)){
+    if(i == j){
+      right <- right + Confusion[i,j]
+      total <- total + Confusion[i,j]
+    }
+    else{
+      total <- total + Confusion[i,j]
+    }
+      
+  }
+}
+
+MCR <- 1 - (right/total)
+MCR
 ```
+
 
 \newpage
 
-## STRATEGY-THREE
+## $k$-Nearest Neighbors
 SUMMARY. Again, comments in the code reveal specific tasks. 
 ```{r, eval=FALSE}
 # Ca$h Money

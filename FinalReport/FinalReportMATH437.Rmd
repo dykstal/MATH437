@@ -220,13 +220,13 @@ predictQDA <- predict(fitQDA, BigChungus)
 classPredictions <- predictQDA$class
 
 # Create the Confusion Matrix
-confuse <- table(BigChungus[,9],
-                 classPredictions)
-confuse
+Confusion <- table(BigChungus[,9],
+                   classPredictions)
+Confusion
 
 # Estimate the Misclassification Rate
-numCorrect <- sum(diag(confuse))
-numEstimated <- sum(confuse)
+numCorrect <- sum(diag(Confusion))
+numEstimated <- sum(Confusion)
 accuracy <- numCorrect / numEstimated
 misclassRate <- 1 - accuracy
 misclassRate
@@ -243,13 +243,13 @@ for (i in 1:n) {
 }
 
 # Create the Confusion Matrix
-confuse <- table(BigChungus[,9],
-                 classPredictions)
-confuse
+Confusion <- table(BigChungus[,9],
+                   classPredictions)
+Confusion
 
 # Estimate the Misclassification Rate
-numCorrect <- sum(diag(confuse))
-numEstimated <- sum(confuse)
+numCorrect <- sum(diag(Confusion))
+numEstimated <- sum(Confusion)
 accuracy <- numCorrect / numEstimated
 misclassRate <- 1 - accuracy
 misclassRate
@@ -260,51 +260,46 @@ misclassRate
 ## Logistic Regression
 SUMMARY. Again, comments in the code reveal specific tasks. 
 ```{r, eval=FALSE}
-# Begin Classifying by Logistic Regression
+# Bring in the NNET Library for Logistic Regression
 library(nnet)
-lr <- multinom(isDiabetic ~., data = BigChungus, trace=FALSE, maxit = 10000)
-coe <- summary(lr)$coefficients
+
+# Begin Classifying by Logistic Regression
+lrFit <- multinom(isDiabetic ~ .,
+                  data = BigChungus,
+                  trace = FALSE,
+                  maxit = 10000)
+coe <- summary(lrFit)$coefficients
 LittleChungus <- BigChungus[-9]
 nman <- t(LittleChungus)
-logodds <- coe[1] + coe[-1]%*%nman
+logodds <- coe[1] + coe[-1] %*% nman
 logodds <- cbind(0, t(logodds))
 class <- apply(logodds, 1, which.max)
 class <- class - 1
-class
 
 #Construct Confusion Matrix
-Confusion <- table(BigChungus[,9],class)
+Confusion <- table(BigChungus[,9],
+                   class)
 Confusion
-right <- 0
-total <- 0
 
-# Calculate Misclassification Rate
-for(i in 1:nrow(Confusion)){
-  for(j in 1:ncol(Confusion)){
-    if(i == j){
-      right <- right + Confusion[i,j]
-      total <- total + Confusion[i,j]
-    }
-    else{
-      total <- total + Confusion[i,j]
-    }
-      
-  }
-}
+# Estimate the Misclassification Rate
+numCorrect <- sum(diag(Confusion))
+numEstimated <- sum(Confusion)
+accuracy <- numCorrect / numEstimated
+misclassRate <- 1 - accuracy
+misclassRate
 
-MCR <- 1 - (right/total)
-MCR
-
-# Now try LOOCV
-
+# Now Try Leave-One-Out Cross-Validation
 n <- length(BigChungus$isDiabetic)
-pcv <- rep(0,n)
+pcv <- rep(0, n)
 
 for (i in 1:n) {
-  lr <- multinom(isDiabetic~., data = BigChungus[-i,], trace=FALSE, maxit = 10000)
-  coe <- summary(lr)$coefficients
+  lrFit <- multinom(isDiabetic ~ .,
+                    data = BigChungus[-i,],
+                    trace = FALSE,
+                    maxit = 10000)
+  coe <- summary(lrFit)$coefficients
   tman <- t(BigChungus[i,-9])
-  logodds <- coe[1] + coe[-1]%*%tman
+  logodds <- coe[1] + coe[-1] %*% tman
   logodds <- cbind(0, t(logodds))
   pcv[i] <- which.max(logodds) - 1
 }
@@ -312,25 +307,13 @@ for (i in 1:n) {
 #Construct Confusion Matrix
 Confusion <- table(BigChungus[,9],pcv)
 Confusion
-right <- 0
-total <- 0
 
-# Misclassification Rate
-for(i in 1:nrow(Confusion)){
-  for(j in 1:ncol(Confusion)){
-    if(i == j){
-      right <- right + Confusion[i,j]
-      total <- total + Confusion[i,j]
-    }
-    else{
-      total <- total + Confusion[i,j]
-    }
-      
-  }
-}
-
-MCR <- 1 - (right/total)
-MCR
+# Estimate the Misclassification Rate
+numCorrect <- sum(diag(Confusion))
+numEstimated <- sum(Confusion)
+accuracy <- numCorrect / numEstimated
+misclassRate <- 1 - accuracy
+misclassRate
 ```
 
 

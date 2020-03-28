@@ -41,7 +41,7 @@ In this project, we choose to focus on a dataset which includes information rega
 \end{enumerate}
 \newpage
 
-# 2 \hspace{0.25cm} The Quadratic Discriminate Analysis Approach
+# 2 \hspace{0.25cm} The Quadratic Discriminant Analysis Approach
 ## 2.1 \hspace{0.25cm} Assumptions
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 [//]: 1) Clearly Explain Assumptions Needed for Validity  %
@@ -206,14 +206,53 @@ BigChungus <- read.csv('Diabetes.csv', header = TRUE)
 
 \newpage
 
-## Quadratic Discriminate Analysis
+## Quadratic Discriminant Analysis
 SUMMARY. Again, comments in the code reveal specific tasks. 
 ```{r, eval=FALSE}
 # Bring in the MASS Library for QDA
 library(MASS)
 
 # Fit the QDA Model to the Diabetes Data
-fit
+fitQDA <- qda(isDiabetic ~ .,
+              data = BigChungus,
+              prior = c(0.33, 0.67))
+predictQDA <- predict(fitQDA, BigChungus)
+classPredictions <- predictQDA$class
+
+# Create the Confusion Matrix
+confuse <- table(BigChungus[,9],
+                 classPredictions)
+confuse
+
+# Estimate the Misclassification Rate
+numCorrect <- sum(diag(confuse))
+numEstimated <- sum(confuse)
+accuracy <- numCorrect / numEstimated
+misclassRate <- 1 - accuracy
+misclassRate
+
+# Now Use Leave-One-Out Cross Validation
+n <- nrow(BigChungus)
+classPredictions <- rep(0, n)
+for (i in 1:n) {
+  fitQDA <- qda(isDiabetic ~ .,
+                data = BigChungus[-i,],
+                prior = c(0.33, 0.67))
+  predictQDA <- predict(fitQDA, BigChungus[i,])
+  classPredictions[i] <- as.numeric(predictQDA$class) - 1
+}
+
+# Create the Confusion Matrix
+confuse <- table(BigChungus[,9],
+                 classPredictions)
+confuse
+
+# Estimate the Misclassification Rate
+numCorrect <- sum(diag(confuse))
+numEstimated <- sum(confuse)
+accuracy <- numCorrect / numEstimated
+misclassRate <- 1 - accuracy
+misclassRate
 ```
 
 \newpage
@@ -221,9 +260,6 @@ fit
 ## Logistic Regression
 SUMMARY. Again, comments in the code reveal specific tasks. 
 ```{r, eval=FALSE}
-# Load the Data
-BigChungus <- read.csv('Diabetes.csv', header = TRUE)
-
 # Begin Classifying by Logistic Regression
 library(nnet)
 lr <- multinom(isDiabetic ~., data = BigChungus, trace=FALSE, maxit = 10000)

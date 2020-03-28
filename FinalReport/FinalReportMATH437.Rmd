@@ -319,8 +319,61 @@ misclassRate
 
 \newpage
 
-## $k$-Nearest Neighbors
+## $p$-Fold $k$-Nearest Neighbors
 SUMMARY. Again, comments in the code reveal specific tasks. 
 ```{r, eval=FALSE}
-# Ca$h Money
+# Load the Classifcation Library
+library(class)
+
+# Make log scale
+kgrid <- 10^seq(.5,2.5,length.out = 20)
+kgrid <- floor(kgrid)
+MCR <- rep(0,20)
+
+folds <- sample(c(1:nrow(BigChungus)),replace = FALSE)
+foldind <- seq(1,768,length.out = 11)
+foldind <- floor(foldind)
+
+# Make test-train splits
+for(i in 1:length(kgrid)){
+MCRS <- rep(0,10) 
+  for(j in 1:10){
+    testind <- foldind[j]:foldind[j+1]
+  test <- BigChungus[testind,]
+  train <- BigChungus[-testind,]
+    fit <- knn(train, test, cl = train[,9], k=kgrid[i])
+    
+#Construct Confusion Matrix
+Confusion <- table(test[,9],fit)
+right <- sum(diag(Confusion))
+total <- sum(Confusion)
+
+# Misclassification Rate
+
+MCRS[j] <- 1 - (right/total)
+    
+  }
+MCR[i] <- mean(MCRS)
+}
+theRightK <- which.min(MCR)
+KBest <- kgrid[theRightK]
+KBest
+
+  
+# New fit of entire Dataset with k =21
+
+FinalFit = knn(BigChungus, BigChungus, cl = BigChungus[,9], k = KBest)
+
+Confusion <- table(BigChungus[,9],FinalFit)
+Confusion
+right <- sum(diag(Confusion))
+total <- sum(Confusion)
+
+# Misclassification Rate
+
+MCR <- 1 - (right/total)
+MCR
+
+
+
 ```

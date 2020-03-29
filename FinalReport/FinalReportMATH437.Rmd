@@ -133,24 +133,23 @@ DANKNUGGIES.
 
 The logistic regression approach to binary classification problems requires the following assumptions for the validity of the model:
 \begin{enumerate}
-  \item Appropriate response structure, meaning that the response's format aligns with the data. Here, our response is binary (has Type II Diabetes or does not) and our data has the same format. Therefore, this assumption holds in this experiement.
+  \item The response is binary, meaning observations either belong to class zero or class one. In the Pima Indians Diabetes dataset, each observation is either classified as testing positive for Type II diabetes or not, so this assumption holds in our experiement.
  
-  \item Observation independence, meaning the observations in the data are independent. This means that observations are not the result of repeated measurements or matched data. This is met in our data set because each observation is unique (each person sampled is distinct).
+  \item The observations in the data are independent. In the Pima Indians Diabetes dataset, individual observations are distinct and are drawn from a simple random sample of the Pima Indian population. Thus, there is reasonable evidence that observations are independent in our experiment.
 
-  \item Absence of multicollinearity, meaning our independent variables should not be "too highly correlated" with one another. We will check this assumption in detail in Section 3.4.
+  \item The covariates are not collinear. To check this assumption, we must plot each combination of two covariates against each other to see if there appears to be a strong linear association between them. We will check this assumption in detail in Section 3.4.
 
-  \item Sufficiently large sample size and sufficient representation for each group. By convention, this is usually considered to be roughly 30 in a classification problem. We have 768 total observations, 500 of which belong to the non-diabetic group and 268 of which belong to the diabetic group. Clearly, this assumption is satisfactorily met.
-  
-  \item Each observation is a Bernoulli trial with success probability
-\begin{equation*}
-  p = \frac{\exp(\beta_0 + \beta_1x_1 + \cdots + \beta_px_p)}{1 + \exp(\beta_0 + \beta_1x_1 + \cdots + \beta_px_p)} = \frac{\exp(\boldsymbol{\beta}^T\boldsymbol{x})}{1 + \exp(\boldsymbol{\beta}^T\boldsymbol{x})}.
-\end{equation*}
-ELABORATE.
+  \item Each observation is a Bernoulli trial. The success probability of these Bernoulli trials is determined by the model. 
 \end{enumerate}
-In our case, logistic regression is employed to approach a binary classification problem. The binary classification problem 
-which represents the log odds as a linear combination of the covariates.
-
-\item Assume each outcome is a Bernoulli trial with probability $p$.
+According to our logistic regression model, we define the success probability for each observation as
+\begin{equation*}
+  p = \frac{\exp(\beta_0 + \beta_1x_1 + \cdots + \beta_px_k)}{1 + \exp(\beta_0 + \beta_1x_1 + \cdots + \beta_px_k)} = \frac{\exp(\boldsymbol{\beta}^T\boldsymbol{x})}{1 + \exp(\boldsymbol{\beta}^T\boldsymbol{x})}.
+\end{equation*}
+Above, $\boldsymbol{x}$ is the vector listing the $k$ covariates for the item to be classified and $\boldsymbol{\beta}$ is the vector of parameters. In this case, a success for each Bernoulli trial is considered testing positive for Type II diabetes. With this said, our logistic regression model classifies individual observations as Type II diabetic if the quantity
+\begin{equation*}
+    \hat{p} = \dfrac{\exp \left( \boldsymbol{\hat{\beta}}^T \boldsymbol{x} \right)}{1 + \exp \left( \boldsymbol{\hat{\beta}}^T \boldsymbol{x} \right)}
+\end{equation*}
+is greater than or equal to 0.5. Here, the vector $\boldsymbol{\hat{\beta}}$ is the maximum likelihood estimator for the parameters $\boldsymbol{\beta}$. This estimator $\boldsymbol{\hat{\beta}}$ maximizes the likelihood function for $\boldsymbol{\beta}$.
 
 ## 3.2 \hspace{0.25cm} Model Construction Methods
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -196,6 +195,8 @@ RESULTS:
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 DANKNUGGIES.
+
+PUT EDWARDS PLOTS HERE.
 
 \newpage
 
@@ -446,8 +447,6 @@ plot(BigChungus$pregnancyNumber, BigChungus$age,
      xlab = "Number of Pregnancies",
      ylab = "Age of Person Observed",
      main = "Number of Pregnancies vs. Age")
-
-par(mfrow = c(7, 2))
 plot(BigChungus$glucoseConcentration, BigChungus$bloodPressure,
      col = "blue3", pch = 16,
      xlab = "Glucose Concentration",
@@ -520,8 +519,6 @@ plot(BigChungus$tricepThiccness, BigChungus$pedigreeFunction,
      xlab = "Tricep Fold Thickness",
      ylab = "Diabetic Pedigree Fucntion",
      main = "Tricep Fold Thickness vs. Diabetic Pedigree Function")
-
-par(mfrow = c(7, 2))
 plot(BigChungus$tricepThiccness, BigChungus$age,
      col = "blue3", pch = 16,
      xlab = "Tricep Fold Thickness",

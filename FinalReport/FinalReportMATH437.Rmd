@@ -292,6 +292,14 @@ The code in this section, written in \texttt{R}, collects and loads the Pima Ind
 # Collect the Pima Indian Diabetes Data into a Dataframe
 BigChungus <- read.csv('Diabetes.csv', header = TRUE)
 ```
+After initially reading in the data, some cleaning must be performed. Notably, there are invalid values for several observations in several variables - specifically, some entries show values of 0 for glucose concentration, blood pressure, tricep thickness and BMI. We clean this data using the following commands.
+```{r}
+cleanChungus = subset(bigChungus, glucoseConcentration != 0)
+cleanChungus = subset(cleanChungus, bloodPressure != 0) 
+cleanChungus = subset(cleanChungus, tricepThiccness != 0)
+cleanChungus = subset(cleanChungus, BMI != 0)
+BigChungus = cleanChungus
+```
 Please note that these data are originally owned by the National Institute of Diabetes and Digestive and Kidney Diseases. These data are donated by Vincent Sigillitio, the RMI Group Leader at the Applied Physics Laboratory at The Johns Hopkins University. We use these data as published and made available for academic use by the University of California at Irvine Machine Learning Repository (\texttt{https://archive.ics.uci.edu/ml}).
 
 \newpage

@@ -174,7 +174,13 @@ DANKNUGGIES.
 [//]: 2) Preview the Checks of Assumptions                %
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-DANKNUGGIES. 
+The $k$-nearest neighbors approach explicitly assumes that observations are more likely to belong to the same class if their covariate values are closer in distance. To make this assumption, we must also assume that, for the vector $\boldsymbol{x}$ of covariates corresponding to an item to be classified:
+\begin{enumerate}
+  \item We have a \emph{labeled} training set of $p$ examples with labels (classifications) $y_1, \ldots, y_p$ and corresponding covariates $\boldsymbol{x}_1, \ldots, \boldsymbol{x}_p$;
+  \item Every element in each covariate vector is numeric (so we can calculate distances between $\boldsymbol{x}$ and other covariate vectors);
+  \item There exists some vector norm that we can employ to calculate distances between $\boldsymbol{x}$ and $\boldsymbol{x}_i$ for $i = 1,2, \ldots, p$.
+\end{enumerate}
+Four our purposes, DESCRIBE HOW WE MEET. USE EUCLIDEAN DISTANCE. GO PACK GO.
 
 ## 4.2 \hspace{0.25cm} Model Construction Methods
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -183,7 +189,7 @@ DANKNUGGIES.
 
 DANKNUGGIES.
 
-## 4.3 \hspace{0.25cm} Application to the Pima Indian Diabetes Study 
+## 4.3 \hspace{0.25cm} Application to the Pima Indian Diabetes Study
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 [//]: 1) Explain Model's Answers to Research Questions    %
 [//]: 2) Contextualize Assumptions and Results to the     %
@@ -207,7 +213,7 @@ RESULTS:
 [1] 0.2421875
 ```
 
-## 4.4 \hspace{0.25cm} Model Limitations \& Appropriateness 
+## 4.4 \hspace{0.25cm} Model Limitations \& Appropriateness
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 [//]: 1) Discuss the Limitations of this Approach as Seen %
 [//]:    in the Results                                   %

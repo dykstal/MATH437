@@ -61,11 +61,19 @@ For each of these methods, we cover the necessary model assumptions, our model c
 [//]: Below information is sourced from https://datascienceplus.com/how-to-perform-logistic-regression-lda-qda-in-r/
 The assumptions needed for validity of QDA are
 \begin{enumerate}
-\item In order to perform QDA, we need to ensure that each group has at least as many entries as there are variables. Since there's only 8 variables, and 268/500 elements in each group (Diabetics vs not).
-Additionally, we require that 
+\item Each group has at least as many entries as there are variables. 
 \item Different covariance for each of the response classes. That is, for ex – σk1, σk2, σk3 for response class k1, k2, k3 etc.
 \item Distribution of observation in each of the response class is normal with a class-specific mean (µk) and class-specific covariance (σk2).
 \end{enumerate}
+
+Below are the Checks we performed for the validity assumptions.
+\begin{enumerate}
+\item There are 268 observations in the smallest group (isDiabetic == 1), and only 8 variables, so this requirement is satisfied.
+\item ???
+\item By separating the data into the two groups, and then constructing histograms of each variable, we can see which observations appear normally distributed within a particular class.
+\end{enumerate}
+
+
 \newpage
 
 ## 2.2 \hspace{0.25cm} Model Construction Methods

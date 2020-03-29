@@ -131,26 +131,26 @@ DANKNUGGIES.
 [//]: 2) Preview the Checks of Assumptions                %
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Logstic Regression requires the following assumptions for validity of the model:
+The logistic regression approach to binary classification problems requires the following assumptions for the validity of the model:
 \begin{enumerate}
-
-\item (Schreiber-Gregory) Appropriate response structure, meaning that the response's format aligns with the data. Here, our response is binary (has Type II Diabetes or does not) and our data has the same format. Therefore, this assumption holds in this experiement.
+  \item Appropriate response structure, meaning that the response's format aligns with the data. Here, our response is binary (has Type II Diabetes or does not) and our data has the same format. Therefore, this assumption holds in this experiement.
  
-\item (Schreiber-Gregory) Observation independence, meaning the observations in the data are independent. This means that observations are not the result of repeated measurements or matched data. This is met in our data set because each observation is unique (each person sampled is distinct).
+  \item Observation independence, meaning the observations in the data are independent. This means that observations are not the result of repeated measurements or matched data. This is met in our data set because each observation is unique (each person sampled is distinct).
 
-\item (Schreiber-Gregory)  Absence of multicollinearity, meaning our independent variables should not be "too highly correlated" with one another. We will check this assumption in detail in Section 3.4.
+  \item Absence of multicollinearity, meaning our independent variables should not be "too highly correlated" with one another. We will check this assumption in detail in Section 3.4.
 
-\item (Schreiber-Gregory) Sufficiently large sample size and sufficient representation for each group. By convention, this is usually considered to be roughly 30 in a classification problem. We have 768 total observations, 500 of which belong to the non-diabetic group and 268 of which belong to the diabetic group. Clearly, this assumption is satisfactorily met. 
-
-\item (Schreiber-Gregory, Navidi) Linearity of independent variables and log odds. This assumes the independent variable is linearly related to the logodds. Luckily, the logistic regression model defines the maximum likelihood estimator as
+  \item Sufficiently large sample size and sufficient representation for each group. By convention, this is usually considered to be roughly 30 in a classification problem. We have 768 total observations, 500 of which belong to the non-diabetic group and 268 of which belong to the diabetic group. Clearly, this assumption is satisfactorily met.
+  
+  \item Each observation is a Bernoulli trial with success probability
 \begin{equation*}
-  p = \frac{\exp(\beta_0 + \beta_1x_1 + \cdots + \beta_px_p)}{1 + \exp(\beta_0 + \beta_1x_1 + \cdots + \beta_px_p)} = \frac{\exp(\boldsymbol{\beta}^T\boldsymbol{x})}{1 + \exp(\boldsymbol{\beta}^T\boldsymbol{x})},
+  p = \frac{\exp(\beta_0 + \beta_1x_1 + \cdots + \beta_px_p)}{1 + \exp(\beta_0 + \beta_1x_1 + \cdots + \beta_px_p)} = \frac{\exp(\boldsymbol{\beta}^T\boldsymbol{x})}{1 + \exp(\boldsymbol{\beta}^T\boldsymbol{x})}.
 \end{equation*}
+ELABORATE.
+\end{enumerate}
+In our case, logistic regression is employed to approach a binary classification problem. The binary classification problem 
 which represents the log odds as a linear combination of the covariates.
 
-\item (Navidi) Assume each outcome is a Bernoulli trial with probability $p$.
-
-\end{enumerate}
+\item Assume each outcome is a Bernoulli trial with probability $p$.
 
 ## 3.2 \hspace{0.25cm} Model Construction Methods
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -212,7 +212,9 @@ The $k$-nearest neighbors approach explicitly assumes that observations are more
   \item Every element in each covariate vector is numeric (so we can calculate distances between $\boldsymbol{x}$ and other covariate vectors);
   \item There exists some vector norm that we can employ to calculate distances between $\boldsymbol{x}$ and $\boldsymbol{x}_i$ for $i = 1,2, \ldots, p$.
 \end{enumerate}
-For our purposes, DESCRIBE HOW WE MEET. USE EUCLIDEAN DISTANCE. GO PACK GO.
+For our purposes, we meet each of these assumptions. After all, each of the 768 observations in the Pima Indians Diabetes dataset is labeled (since every observation is marked as either positive or negative for Type II diabetes) and has a vector of the same covariates. All of these covariates are numeric and there are no null values, so there is no violation of $k$NN model assumptions stemming from the data. Additionally, we employ a $k$NN model that uses the $\ell_2$-norm (Euclidean distance) to measure distance between covariate vectors. So, each of the assumptions necessary for this approach are met.
+
+DESCRIBE THE ALGORITHM.
 
 ## 4.2 \hspace{0.25cm} Model Construction Methods
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -220,6 +222,8 @@ For our purposes, DESCRIBE HOW WE MEET. USE EUCLIDEAN DISTANCE. GO PACK GO.
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 DANKNUGGIES.
+
+![](/home/adykstal@corp.icr-team.com/MyGit/MATH437/FinalReport/knnCV.png)
 
 ## 4.3 \hspace{0.25cm} Application to the Pima Indian Diabetes Study
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -457,6 +461,20 @@ for(i in 1:length(kGrid)){
 kBestInd <- which.min(MCR)
 kBest <- kGrid[kBestInd]
 
+# Make the Cross-Validation Plot
+plot(kGrid, MCR,
+     type = 'l', col = 'blue3',
+     xlab = 'Value of Hyperparameter k',
+     ylab = 'Cross-Validation Score (Mean Fold Misclassification Rate)',
+     main = 'Cross-Validation Scores Over Values of the Hyperparameter k')
+points(kBest, MCR[kBestInd],
+       pch = 16, col = 'red2')
+kBestPlaceHolder <- kBest + 20
+text(MCR[kBestInd] ~ kBestPlaceHolder,
+     labels = c('k = 21'),
+     cex = 0.9,
+     font = 2)
+
 # Fit to the Entire Data Set with the Optimal k
 FinalFit = knn(BigChungus,
                BigChungus,
@@ -468,8 +486,8 @@ Confusion
 # Estimate the Optimal Misclassification Rate
 right <- sum(diag(Confusion))
 total <- sum(Confusion)
-MCR <- 1 - (right / total)
-MCR
+misclassRate <- 1 - (right / total)
+misclassRate
 
 # Fit with Leave-One-Out Cross Validation and Optimal k
 pcv <- rep(0, n)

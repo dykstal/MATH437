@@ -58,7 +58,7 @@ For each of these methods, we cover the necessary model assumptions, our model c
 [//]: 2) Preview the Checks of Assumptions                %
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-DANKNUGGIES.
+In order to perform QDA, we need to ensure that each group has at least as many entries as there are variables. Since there's only 8 variables, and 268/500 elements in each group (Diabetics vs not).
 
 \newpage
 

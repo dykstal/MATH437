@@ -25,7 +25,7 @@ knitr::opts_chunk$set(echo = TRUE)
 [//]: 3) Preview the Model that will be used to Solve     %
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In this report, we examine the "Pima Indians Diabetes Database", courtesy of the National Institute of Diabetes and Digestive and Kidney Diseases (NIDDK). This dataset -- published publicly on May $9^{\text{th}}$, 1990 -- records a variety of measurements for a simple random sample of 768 female members of the Pima Indian tribe in North America. Specifically, for each individual in the data, the following attributes are recorded:
+In this report, we examine the "Pima Indians Diabetes Database", courtesy of the National Institute of Diabetes and Digestive and Kidney Diseases (NIDDK). This dataset -- published publicly on May $9^{\text{th}}$, 1990 -- records a variety of measurements for a simple random sample of 768 female members of the Pima Indian tribe in North America. [1] Specifically, for each individual in the data, the following attributes are recorded:
 \begin{itemize}
   \item The number of times the individual has been pregnant.
   \item The individual's plasma glucose concentration over two hours in an oral glucose tolerance test.
@@ -37,7 +37,7 @@ In this report, we examine the "Pima Indians Diabetes Database", courtesy of the
   \item The individual's age in years.
   \item The individual's Type II diabetic status -- in particular, whether the individual tests positive for Type II diabetes.
 \end{itemize}
-These data were collected as part of a clinical research trial to determine which potential risk factors -- if any -- are most relevant to Type II diabetes in the Pima Indian population. While we study the same data, our research objective differs.
+These data were collected as part of a clinical research trial to determine which potential risk factors -- if any -- are most relevant to Type II diabetes in the Pima Indian population. [1] While we study the same data, our research objective differs.
 
 Our primary research objective focuses on comparing the efficacy of different of statistical learning methods to classify Type II diabetes among females in the Pima Indian population. Specifically, with each method, we classify the diabetic status of individual females in the Pima Indian population using the eight other attributes recorded in the dataset. Then, we estimate the accuracy of each method to determine if we can reasonably predict someone's Type II diabetic status from the variables recorded in the data. Finally, we compare the accuracies of the various classification methods to determine whether different statistical learning models make a noticeable difference in predicting an individual's diabetic status. 
 
@@ -58,9 +58,11 @@ For each of these methods, we cover the necessary model assumptions, our model c
 [//]: 2) Preview the Checks of Assumptions                %
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The assumptions needed for validity of QDA are
+TODO -> REFORMAT TO MATCH OTHER SECTIONS.
+
+The assumptions needed for validity of QDA are:
 \begin{enumerate}
-\item Each group has at least as many entries as there are features. 
+\item Each group has at least as many entries as there are features. [2]
 \item Different covariance for each of the response classes. That is, for ex – $\sigma_{k1}$, $\sigma_{k2}$, $\sigma_{k3}$ for response class $k1$, $k2$, $k3$ etc.
 \item Distribution of observations in each of the response class is normal with a class-specific mean ($\mu_k$) and class-specific covariance ($\sigma_{k2}$).
 \end{enumerate}
@@ -109,19 +111,23 @@ classPredictions
 [//]:       v)   Identify any Outliers                    %
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
 Below are the checks we performed for the validity assumptions.
 \begin{enumerate}
 \item There are 177 observations in the smallest group (isDiabetic == 1), and only 8 variables, so this requirement is satisfied.
 \item We assume that each response class has a different covariance matrix.
-\item By separating the data into the two groups, and then constructing histograms of each variable, we can see which observations appear normally distributed within a particular class. Below is a figure containing these histograms. The first column contains data from all non-diabetic entries, and the second contains all diabetic entries. Then, each row is a particular variable. In order, the rows are "pregnancyNumber", "glucoseConcentration", "bloodPressure", "tricepThiccness", "serumInsulin", "BMI", "pedigreeFunction", and "age". \\
+\item By separating the data into the two groups, and then constructing histograms of each variable, we can see which observations appear normally distributed within a particular class. Below is a figure containing these histograms. The first column contains data from all non-diabetic entries, and the second contains all diabetic entries. Then, each row is a particular variable. In order, the rows are "pregnancyNumber", "glucoseConcentration", "bloodPressure", "tricepThiccness", "serumInsulin", "BMI", "pedigreeFunction", and "age".
 
-AIDAN DONT FORGET TO DO THIS YOU FUCK
-Insert the plot "ObsHist.png" here
+\end{enumerate}
 
+TODO -> FIX THESE PLOTS
+
+![](/home/adykstal@corp.icr-team.com/MyGit/MATH437/FinalReport/obsHist.png)
+
+TODO -> REPHRASE FOR CONSISTENCY
 
 From these plots, we can see that "pregnancyNumber", "serumInsulin", and "age" are all non-normally distributed. As such, we will consider omitting these covariates in order to better preserve the accuracy of the situation.
-\end{enumerate}
+
+TODO -> REFIT QDA WITHOUT VIOLATING COVARIATES.
 
 \newpage
 
@@ -134,11 +140,11 @@ From these plots, we can see that "pregnancyNumber", "serumInsulin", and "age" a
 
 The logistic regression approach to binary classification problems requires the following assumptions for the validity of the model:
 \begin{enumerate}
-  \item The response is binary, meaning observations either belong to class zero or class one. In the Pima Indians Diabetes dataset, each observation is either classified as testing positive for Type II diabetes or not, so this assumption holds in our experiement. [1]
+  \item The response is binary, meaning observations either belong to class zero or class one. In the Pima Indians Diabetes dataset, each observation is either classified as testing positive for Type II diabetes or not, so this assumption holds in our experiement. [2]
  
-  \item The observations in the data are independent. In the Pima Indians Diabetes dataset, individual observations are distinct and are drawn from a simple random sample of the Pima Indian population. Thus, there is reasonable evidence that observations are independent in our experiment. [1]
+  \item The observations in the data are independent. In the Pima Indians Diabetes dataset, individual observations are distinct and are drawn from a simple random sample of the Pima Indian population. Thus, there is reasonable evidence that observations are independent in our experiment. [2]
 
-  \item The covariates are not collinear. To check this assumption, we must plot each combination of two covariates against each other to see if there appears to be a strong linear association between them. We will check this assumption in detail in Section 3.4. [1]
+  \item The covariates are not collinear. To check this assumption, we must plot each combination of two covariates against each other to see if there appears to be a strong linear association between them. We will check this assumption in detail in Section 3.4. [2]
 
   \item Each observation is a Bernoulli trial. The success probability of these Bernoulli trials is determined by the model. 
 \end{enumerate}
@@ -197,7 +203,11 @@ class
 
 DANKNUGGIES.
 
-PUT EDWARDS PLOTS HERE.
+TODO -> FIX THESE PLOTS TO MATCH CLEAN DATA/HAVE AXIS TITLES.
+
+![](/home/adykstal@corp.icr-team.com/MyGit/MATH437/FinalReport/covPlots1.png)
+
+![](/home/adykstal@corp.icr-team.com/MyGit/MATH437/FinalReport/covPlots2.png)
 
 \newpage
 
@@ -216,7 +226,7 @@ The $k$-nearest neighbors approach explicitly assumes that observations are more
 \end{enumerate}
 For our purposes, we meet each of these assumptions. After all, each of the 768 observations in the Pima Indians Diabetes dataset is labeled (since every observation is marked as either positive or negative for Type II diabetes) and has a vector of the same covariates. All of these covariates are numeric and there are no null values, so there is no violation of $k$NN model assumptions stemming from the data. Additionally, we employ a $k$NN model that uses the $\ell_2$-norm (Euclidean distance) to measure distance between covariate vectors. So, each of the assumptions necessary for this approach are met.
 
-DESCRIBE THE ALGORITHM.
+TODO -> DESCRIBE THE ALGORITHM.
 
 ## 4.2 \hspace{0.25cm} Model Construction Methods
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -284,33 +294,37 @@ DANKNUGGIES.
 \newpage
 
 # References
-[1] Deanna N. Schreiber-Gregory, MS
+[1] Vincent Sigillitio, Ph.D
+
+\ \ \ \ \ "Pima Indians Diabetes Database"
+
+\ \ \ \ \ \texttt{https://archive.ics.uci.edu/ml}
+
+\ \ \ \ \ Published 05/09/1990
+
+\ \ \ \ \ Accessed 03/29/2020
+
+\bigskip
+
+[2] Prashant Shekhar, MS
+
+\ \ \ \ \ "How to Perform Logistic Regression, LDA, & QDA in R"
+
+\ \ \ \ \ \texttt{https://datascienceplus.com/how-to-perform-logistic-regression-lda-qda-in-r/}
+
+\ \ \ \ \ Published 01/05/2018
+
+\ \ \ \ \ Accessed 03/29/2020
+
+\bigskip
+
+[3] Deanna N. Schreiber-Gregory, MS
 
 \ \ \ \ \ "Logistic and Linear Regression Assumptions: Violation Recognition and Control"
 
 \ \ \ \ \ \texttt{https://www.lexjansen.com/wuss/2018/130_Final_Paper_PDF.pdf}
 
 \ \ \ \ \ Published 2018
-
-\ \ \ \ \ Accessed 03/29/2020
-
-[2] AUTHOR, DEGREE
-
-\ \ \ \ \ "TITLE"
-
-\ \ \ \ \ \texttt{https://datascienceplus.com/how-to-perform-logistic-regression-lda-qda-in-r/}
-
-\ \ \ \ \ Published WHEN
-
-\ \ \ \ \ Accessed 03/29/2020
-
-[3] AUTHOR, DEGREE
-
-\ \ \ \ \ "TITLE"
-
-\ \ \ \ \ \texttt{URL}
-
-\ \ \ \ \ Published WHEN
 
 \ \ \ \ \ Accessed 03/29/2020
 
@@ -352,13 +366,22 @@ The code in this section, written in \texttt{R}, is used to compute all of the r
 # Bring in the MASS Library for QDA
 library(MASS)
 
-# Check the assumption that the group-split covariate data is in fact multivariate normal by plotting.
-group1 = subset(BigChungus, isDiabetic == 0)
-group2 = subset(BigChungus, isDiabetic == 1)
+# Check the Assumption that the Group-Split
+# Covariate Data is Roughly Multivariate Normal
+group1 <- subset(BigChungus,
+                 isDiabetic == 0)
+group2 <- subset(BigChungus,
+                 isDiabetic == 1)
 par(mfrow = c(8, 2))
 for (i in 1:8) {
-  hist(group1[,i], main = NULL, ylab = NULL, xlab = NULL)
-  hist(group2[,i], main = NULL, ylab = NULL, xlab = NULL)
+  hist(group1[,i],
+       main = NULL,
+       xlab = NULL,
+       ylab = NULL)
+  hist(group2[,i],
+       main = NULL,
+       xlab = NULL,
+       ylab = NULL)
 }
 #This plot can be viewed in section 2.4
 

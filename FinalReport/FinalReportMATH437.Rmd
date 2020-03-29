@@ -352,6 +352,16 @@ The code in this section, written in \texttt{R}, is used to compute all of the r
 # Bring in the MASS Library for QDA
 library(MASS)
 
+# Check the assumption that the group-split covariate data is in fact multivariate normal by plotting.
+group1 = subset(BigChungus, isDiabetic == 0)
+group2 = subset(BigChungus, isDiabetic == 1)
+par(mfrow = c(8, 2))
+for (i in 1:8) {
+  hist(group1[,i], main = NULL, ylab = NULL, xlab = NULL)
+  hist(group2[,i], main = NULL, ylab = NULL, xlab = NULL)
+}
+#This plot can be viewed in section 2.4
+
 # Fit the QDA Model to the Diabetes Data
 fitQDA <- qda(isDiabetic ~ .,
               data = BigChungus,

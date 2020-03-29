@@ -58,7 +58,6 @@ For each of these methods, we cover the necessary model assumptions, our model c
 [//]: 2) Preview the Checks of Assumptions                %
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-[//]: Below information is sourced from https://datascienceplus.com/how-to-perform-logistic-regression-lda-qda-in-r/
 The assumptions needed for validity of QDA are
 \begin{enumerate}
 \item Each group has at least as many entries as there are features. 
@@ -135,11 +134,11 @@ From these plots, we can see that "pregnancyNumber", "serumInsulin", and "age" a
 
 The logistic regression approach to binary classification problems requires the following assumptions for the validity of the model:
 \begin{enumerate}
-  \item The response is binary, meaning observations either belong to class zero or class one. In the Pima Indians Diabetes dataset, each observation is either classified as testing positive for Type II diabetes or not, so this assumption holds in our experiement.
+  \item The response is binary, meaning observations either belong to class zero or class one. In the Pima Indians Diabetes dataset, each observation is either classified as testing positive for Type II diabetes or not, so this assumption holds in our experiement. [1]
  
-  \item The observations in the data are independent. In the Pima Indians Diabetes dataset, individual observations are distinct and are drawn from a simple random sample of the Pima Indian population. Thus, there is reasonable evidence that observations are independent in our experiment.
+  \item The observations in the data are independent. In the Pima Indians Diabetes dataset, individual observations are distinct and are drawn from a simple random sample of the Pima Indian population. Thus, there is reasonable evidence that observations are independent in our experiment. [1]
 
-  \item The covariates are not collinear. To check this assumption, we must plot each combination of two covariates against each other to see if there appears to be a strong linear association between them. We will check this assumption in detail in Section 3.4.
+  \item The covariates are not collinear. To check this assumption, we must plot each combination of two covariates against each other to see if there appears to be a strong linear association between them. We will check this assumption in detail in Section 3.4. [1]
 
   \item Each observation is a Bernoulli trial. The success probability of these Bernoulli trials is determined by the model. 
 \end{enumerate}
@@ -289,15 +288,31 @@ DANKNUGGIES.
 
 \ \ \ \ \ "Logistic and Linear Regression Assumptions: Violation Recognition and Control"
 
-\ \ \ \ \ https://www.lexjansen.com/wuss/2018/130_Final_Paper_PDF.pdf
+\ \ \ \ \ \texttt{https://www.lexjansen.com/wuss/2018/130_Final_Paper_PDF.pdf}
 
 \ \ \ \ \ Published 2018
 
 \ \ \ \ \ Accessed 03/29/2020
 
-LILIA SOURCE
+[2] AUTHOR, DEGREE
 
-DATA SOURCE
+\ \ \ \ \ "TITLE"
+
+\ \ \ \ \ \texttt{https://datascienceplus.com/how-to-perform-logistic-regression-lda-qda-in-r/}
+
+\ \ \ \ \ Published WHEN
+
+\ \ \ \ \ Accessed 03/29/2020
+
+[3] AUTHOR, DEGREE
+
+\ \ \ \ \ "TITLE"
+
+\ \ \ \ \ \texttt{URL}
+
+\ \ \ \ \ Published WHEN
+
+\ \ \ \ \ Accessed 03/29/2020
 
 \newpage
 

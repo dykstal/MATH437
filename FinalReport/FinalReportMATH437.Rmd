@@ -369,7 +369,7 @@ logodds <- cbind(0, t(logodds))
 class <- apply(logodds, 1, which.max)
 class <- class - 1
 
-#Construct Confusion Matrix
+# Construct Confusion Matrix
 Confusion <- table(BigChungus[,9],
                    class)
 Confusion
@@ -397,7 +397,7 @@ for (i in 1:n) {
   pcv[i] <- which.max(logodds) - 1
 }
 
-#Construct Confusion Matrix
+# Construct Confusion Matrix
 Confusion <- table(BigChungus[,9],pcv)
 Confusion
 
@@ -407,6 +407,156 @@ numEstimated <- sum(Confusion)
 accuracy <- numCorrect / numEstimated
 misclassRate <- 1 - accuracy
 misclassRate
+
+# Check Assumption of Absence of Multicollinearity
+
+par(mfrow = c(7, 2))
+plot(BigChungus$pregnancyNumber, BigChungus$glucoseConcentration,
+     col = "blue3", pch = 16,
+     xlab = "Number of Pregancies",
+     ylab = "Glucose Concentration",
+     main = "Number of Pregnancies vs. Glucose Concentration")
+plot(BigChungus$pregnancyNumber, BigChungus$bloodPressure,
+     col = "blue3", pch = 16,
+     xlab = "Number of Pregancies",
+     ylab = "Diastolic Blood Pressure",
+     main = "Number of Pregnancies vs. Diastolic Blood Pressure")
+plot(BigChungus$pregnancyNumber, BigChungus$tricepThiccness,
+     col = "blue3", pch = 16,
+     xlab = "Number of Pregnancies",
+     ylab = "Tricep Fold Thickness",
+     main = "Number of Pregnancies vs. Tricep Fold Thickness")
+plot(BigChungus$pregnancyNumber, BigChungus$serumInsulin,
+     col = "blue3", pch = 16,
+     xlab = "Number of Pregnancies",
+     ylab = "Serum Insulin",
+     main = "Number of Pregnancies vs. Serum Insulin")
+plot(BigChungus$pregnancyNumber, BigChungus$BMI,
+     col = "blue3", pch = 16,
+     xlab = "Number of Pregnancies",
+     ylab = "Body Mass Index",
+     main = "Number of Pregnancies vs. Body Mass Index")
+plot(BigChungus$pregnancyNumber, BigChungus$pedigreeFunction,
+     col = "blue3", pch = 16,
+     xlab = "Number of Pregnancies",
+     ylab = "Diabetic Pedigree Function",
+     main = "Number of Pregnancies vs. Diabetic Pedigree Function")
+plot(BigChungus$pregnancyNumber, BigChungus$age,
+     col = "blue3", pch = 16,
+     xlab = "Number of Pregnancies",
+     ylab = "Age of Person Observed",
+     main = "Number of Pregnancies vs. Age")
+
+par(mfrow = c(7, 2))
+plot(BigChungus$glucoseConcentration, BigChungus$bloodPressure,
+     col = "blue3", pch = 16,
+     xlab = "Glucose Concentration",
+     ylab = "Diastolic Blood Pressure",
+     main = "Glucose Concentration vs. Diastolic Blood Pressure")
+plot(BigChungus$glucoseConcentration, BigChungus$tricepThiccness,
+     col = "blue3", pch = 16,
+     xlab = "Glucose Concentration",
+     ylab = "Tricep Fold Thickness",
+     main = "Glucose Concentration vs. Tricep Fold Thickness")
+plot(BigChungus$glucoseConcentration, BigChungus$serumInsulin,
+     col = "blue3", pch = 16,
+     xlab = "Glucose Concentration",
+     ylab = "Serum Insulin",
+     main = "Glucose Concentration vs. Serum Insulin")
+plot(BigChungus$glucoseConcentration, BigChungus$BMI,
+     col = "blue3", pch = 16,
+     xlab = "Glucose Concentration",
+     ylab = "Body Mass Index",
+     main = "Glucose Concentration vs. Body Mass Index")
+plot(BigChungus$glucoseConcentration, BigChungus$pedigreeFunction,
+     col = "blue3", pch = 16,
+     xlab = "Glucose Concentration",
+     ylab = "Diabetic Pedigree Function",
+     main = "Glucose Concentration vs. Diabetic Pedigree Function")
+plot(BigChungus$glucoseConcentration, BigChungus$age,
+     col = "blue3", pch = 16,
+     xlab = "Glucose Concentration",
+     ylab = "Age of Person Observed",
+     main = "Glucose Concentration vs. Age")
+plot(BigChungus$bloodPressure, BigChungus$tricepThiccness,
+     col = "blue3", pch = 16,
+     xlab = "Diastolic Blood Pressure",
+     ylab = "Tricep Fold Thickness",
+     main = "Diastolic Blood Pressure vs. Tricep Fold Thickness")
+
+par(mfrow = c(7, 2))
+plot(BigChungus$bloodPressure, BigChungus$serumInsulin,
+     col = "blue3", pch = 16,
+     xlab = "Diastolic Blood Pressure",
+     ylab = "Serum Insulin",
+     main = "Diastolic Blood Pressure vs. Serum Insulin")
+plot(BigChungus$bloodPressure, BigChungus$BMI,
+     col = "blue3", pch = 16,
+     xlab = "Diastolic Blood Pressure",
+     ylab = "Body Mass Index",
+     main = "Diastolic Blood Pressure vs. Body Mass Index")
+plot(BigChungus$bloodPressure, BigChungus$pedigreeFunction,
+     col = "blue3", pch = 16,
+     xlab = "Diastolic Blood Pressure",
+     ylab = "Diabetic Pedigree Function",
+     main = "Diastolic Blood Pressure vs. Diabetic Pedigree Function")
+plot(BigChungus$bloodPressure, BigChungus$age,
+     col = "blue3", pch = 16,
+     xlab = "Diastolic Blood Pressure",
+     ylab = "Age of Person Observed",
+     main = "Diastolic Blood Pressure vs. Age")
+plot(BigChungus$tricepThiccness, BigChungus$serumInsulin,
+     col = "blue3", pch = 16,
+     xlab = "Tricep Fold Thickness",
+     ylab = "Serum Insulin",
+     main = "Tricep Fold Thickness vs. Serum Insulin")
+plot(BigChungus$tricepThiccness, BigChungus$BMI,
+     col = "blue3", pch = 16,
+     xlab = "Tricep Fold Thickness",
+     ylab = "Body Mass Index",
+     main = "Tricep Fold Thickness vs. Body Mass Index")
+plot(BigChungus$tricepThiccness, BigChungus$pedigreeFunction,
+     col = "blue3", pch = 16,
+     xlab = "Tricep Fold Thickness",
+     ylab = "Diabetic Pedigree Fucntion",
+     main = "Tricep Fold Thickness vs. Diabetic Pedigree Function")
+
+par(mfrow = c(7, 2))
+plot(BigChungus$tricepThiccness, BigChungus$age,
+     col = "blue3", pch = 16,
+     xlab = "Tricep Fold Thickness",
+     ylab = "Age of Person Observed",
+     main = "Tricep Fold Thickness vs. Age")
+plot(BigChungus$serumInsulin, BigChungus$BMI,
+     col = "blue3", pch = 16,
+     xlab = "Serum Insulin",
+     ylab = "Body Mass Index",
+     main = "Serum Insulin vs. Body Mass Index")
+plot(BigChungus$serumInsulin, BigChungus$pedigreeFunction,
+     col = "blue3", pch = 16,
+     xlab = "Serum Insulin",
+     ylab = "Diabetic Pedigree Function",
+     main = "Serum Insulin vs. Diabetic Pedigree Function")
+plot(BigChungus$serumInsulin, BigChungus$age,
+     col = "blue3", pch = 16,
+     xlab = "Serum Insulin",
+     ylab = "Age of Person Observed",
+     main = "Serum Insulin vs. Age")
+plot(BigChungus$BMI, BigChungus$pedigreeFunction,
+     col = "blue3", pch = 16,
+     xlab = "Body Mass Index",
+     ylab = "Diabetic Pedigree Function",
+     main = "Body Mass Index vs. Diabetic Pedigree Function")
+plot(BigChungus$BMI, BigChungus$age,
+     col = "blue3", pch = 16,
+     xlab = "Body Mass Index",
+     ylab = "Age of Person Observed",
+     main = "Body Mass Index vs. Age")
+plot(BigChungus$pedigreeFunction, BigChungus$age,
+     col = "blue3", pch = 16,
+     xlab = "Diabetic Pedigree Function",
+     ylab = "Age of Person Observed",
+     main = "Diabetic Pedigree Function vs. Age")
 ```
 
 \newpage

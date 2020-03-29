@@ -70,7 +70,8 @@ Below are the Checks we performed for the validity assumptions.
 \begin{enumerate}
 \item There are 268 observations in the smallest group (isDiabetic == 1), and only 8 variables, so this requirement is satisfied.
 \item ???
-\item By separating the data into the two groups, and then constructing histograms of each variable, we can see which observations appear normally distributed within a particular class.
+\item By separating the data into the two groups, and then constructing histograms of each variable, we can see which observations appear normally distributed within a particular class. Below is a figure containing these histograms. The first column contains data from all non-diabetic entries, and the second contains all diabetic entries. Then, each row is a particular variable. In order, the rows are "pregnancyNumber", "glucoseConcentration", "bloodPressure", "tricepThiccness", "serumInsulin", "BMI", "pedigreeFunction", and "age". \\
+From these plots, we can see that "pregnancyNumber", "serumInsulin", and "age" are all non-normally distributed. As such, we will consider omitting these covariates in order to better preserve the accuracy of the situation.
 \end{enumerate}
 
 

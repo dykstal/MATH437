@@ -66,9 +66,6 @@ The assumptions needed for validity of QDA are
 \item Distribution of observations in each of the response class is normal with a class-specific mean ($\mu_k$) and class-specific covariance ($\sigma_{k2}$).
 \end{enumerate}
 
-
-\newpage
-
 ## 2.2 \hspace{0.25cm} Model Construction Methods
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 [//]: 1) Describe Procedures to Construct the Model       %
@@ -89,14 +86,14 @@ RESULTS:
 ```
 classPredictions
       0   1
-  0 434  66
-  1 116 152
-[1] 0.2369792
+  0 307  48
+  1  71 106
+[1] 0.2236842
    classPredictions
       0   1
-  0 421  79
-  1 123 145
-[1] 0.2630208
+  0 299  56
+  1  77 100
+[1] 0.25
 ```
 
 ## 2.4 \hspace{0.25cm} Model Limitations \& Appropriateness 
@@ -119,7 +116,11 @@ Below are the checks we performed for the validity assumptions.
 \item There are 177 observations in the smallest group (isDiabetic == 1), and only 8 variables, so this requirement is satisfied.
 \item We assume that each response class has a different covariance matrix.
 \item By separating the data into the two groups, and then constructing histograms of each variable, we can see which observations appear normally distributed within a particular class. Below is a figure containing these histograms. The first column contains data from all non-diabetic entries, and the second contains all diabetic entries. Then, each row is a particular variable. In order, the rows are "pregnancyNumber", "glucoseConcentration", "bloodPressure", "tricepThiccness", "serumInsulin", "BMI", "pedigreeFunction", and "age". \\
-[//]: Insert the plot "ObsHist.png" here
+
+AIDAN DONT FORGET TO DO THIS YOU FUCK
+Insert the plot "ObsHist.png" here
+
+
 From these plots, we can see that "pregnancyNumber", "serumInsulin", and "age" are all non-normally distributed. As such, we will consider omitting these covariates in order to better preserve the accuracy of the situation.
 \end{enumerate}
 
@@ -169,16 +170,16 @@ DANKNUGGIES.
 
 RESULTS:
 ```
- class
+class
       0   1
-  0 445  55
-  1 112 156
-[1] 0.2174479
+  0 316  39
+  1  76 101
+[1] 0.2161654
    pcv
       0   1
-  0 443  57
-  1 114 154
-[1] 0.2226562
+  0 315  40
+  1  77 100
+[1] 0.2199248
 ```
 
 ## 3.4 \hspace{0.25cm} Model Limitations \& Appropriateness 
@@ -238,17 +239,16 @@ DANKNUGGIES.
 
 RESULTS:
 ```
-[1] 21
-   FinalFit
+  FinalFit
       0   1
-  0 455  45
-  1 116 152
-[1] 0.2096354
+  0 326  29
+  1  80  97
+[1] 0.2048872
    pcv
       1   2
-  0 440  60
-  1 126 142
-[1] 0.2421875
+  0 318  37
+  1  85  92
+[1] 0.2293233
 ```
 
 ## 4.4 \hspace{0.25cm} Model Limitations \& Appropriateness
@@ -284,6 +284,23 @@ DANKNUGGIES.
 
 \newpage
 
+# References
+[1] Deanna N. Schreiber-Gregory, MS
+
+\ \ \ \ \ "Logistic and Linear Regression Assumptions: Violation Recognition and Control"
+
+\ \ \ \ \ https://www.lexjansen.com/wuss/2018/130_Final_Paper_PDF.pdf
+
+\ \ \ \ \ Published 2018
+
+\ \ \ \ \ Accessed 03/29/2020
+
+LILIA SOURCE
+
+DATA SOURCE
+
+\newpage
+
 # Appendix
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 [//]: 1) Show R Code for All Computer Output/Results      %
@@ -291,19 +308,24 @@ DANKNUGGIES.
 
 In this appendix, we feature the \texttt{R} code used to generate the results and visualizations featured in this report. We will feature four primary sections for code: (1) data collection and cleaning, (2) quadratic discriminant analysis model selection and analysis, (3) logistic regression model selection and analysis, \& (4) $k$-nearest neighbors model selection and analysis. 
 
-## 1.  Data Collection \& Visualization
+## 1.  Data Collection \& Cleaning
 The code in this section, written in \texttt{R}, collects and loads the Pima Indian Diabetes data into an \texttt{R} dataframe. It also produces some visualizations used to describe the data in Section 1 of the report.
 ```{r, eval=FALSE}
 # Collect the Pima Indian Diabetes Data into a Dataframe
 BigChungus <- read.csv('Diabetes.csv', header = TRUE)
 ```
-After initially reading in the data, some cleaning must be performed. Notably, there are invalid values for several observations in several variables - specifically, some entries show values of 0 for glucose concentration, blood pressure, tricep thickness and BMI. We clean this data using the following commands.
-```{r}
-cleanChungus = subset(bigChungus, glucoseConcentration != 0)
-cleanChungus = subset(cleanChungus, bloodPressure != 0) 
-cleanChungus = subset(cleanChungus, tricepThiccness != 0)
-cleanChungus = subset(cleanChungus, BMI != 0)
-BigChungus = cleanChungus
+After initially processing the data, we observe some instances of invalid observations in several variables. Specifically, some entries show values of zerp for glucose concentration, blood pressure, tricep thickness, and BMI. Clearly, these values cannot be legitimate. So, we remove rows containing these covariate values.
+```{r, eval=FALSE}
+# Remove Rows with Filler Values for Any Covariate
+CleanChungus <- subset(BigChungus,
+                       glucoseConcentration != 0)
+CleanChungus <- subset(CleanChungus,
+                       bloodPressure != 0) 
+CleanChungus <- subset(CleanChungus,
+                       tricepThiccness != 0)
+CleanChungus <- subset(CleanChungus,
+                       BMI != 0)
+BigChungus <- CleanChungus
 ```
 Please note that these data are originally owned by the National Institute of Diabetes and Digestive and Kidney Diseases. These data are donated by Vincent Sigillitio, the RMI Group Leader at the Applied Physics Laboratory at The Johns Hopkins University. We use these data as published and made available for academic use by the University of California at Irvine Machine Learning Repository (\texttt{https://archive.ics.uci.edu/ml}).
 

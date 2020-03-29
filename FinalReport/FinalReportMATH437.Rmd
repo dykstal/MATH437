@@ -58,7 +58,21 @@ For each of these methods, we cover the necessary model assumptions, our model c
 [//]: 2) Preview the Checks of Assumptions                %
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-DANKNUGGIES.
+[//]: Below information is sourced from https://datascienceplus.com/how-to-perform-logistic-regression-lda-qda-in-r/
+The assumptions needed for validity of QDA are
+\begin{enumerate}
+\item Each group has at least as many entries as there are variables. 
+\item Different covariance for each of the response classes. That is, for ex – σk1, σk2, σk3 for response class k1, k2, k3 etc.
+\item Distribution of observation in each of the response class is normal with a class-specific mean (µk) and class-specific covariance (σk2).
+\end{enumerate}
+
+Below are the Checks we performed for the validity assumptions.
+\begin{enumerate}
+\item There are 268 observations in the smallest group (isDiabetic == 1), and only 8 variables, so this requirement is satisfied.
+\item ???
+\item By separating the data into the two groups, and then constructing histograms of each variable, we can see which observations appear normally distributed within a particular class.
+\end{enumerate}
+
 
 \newpage
 
@@ -117,7 +131,30 @@ DANKNUGGIES.
 [//]: 2) Preview the Checks of Assumptions                %
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-DANKNUGGIES. 
+Logstic Regression requires the following assumptions for validity of the model:
+\begin{ennumerate}
+
+\item (Schreiber-Gregory) Assumption of appropriate outcome structure. This means that the outcome's format should align with the datas. Here, our outcome is binary (has Type II Diabetes or does not), and our data has the same format, therefore this assumption holds in this experiement.
+
+ 
+\item (Schreiber-Gregory) Assumption of observation independence. Here, we assume that the data is independent - not from repeated measurements or matched data. This is met in our data set because each observation is unique.   
+
+
+\item (Schreiber-Gregory)  Assumption of the absence of multicollinearity. This means that our independent variables should not be ``too highly correlated" with one another. (CHECK THIS BELOW)
+
+
+\item (Schreiber-Gregory) Assumption of Large sample size. This requires a sufficiently large sample size to represent the group we wish to make inference on. Because we have 768 observations, this assumption is met satisfactorily. 
+
+
+\item (Schreiber-Gregory) Assumption of linearity of independent variables and log odds. This assumes the independent variable is linearly related to the logodds. (CHECK THIS BELOW)
+
+
+\item (Navidi) Assume each outcome is a benoulli trial with probability $p$
+
+
+\item (Navidi) $p = \frac{exp(\beta_0 + \beta_1x_1 + ... + \beta_px_p)}{1 + exp(\beta_0 + \beta_1x_1 + ... + \beta_px_p)} = \frac{exp(\beta^Tx)}{1 + exp(\beta^Tx)}$
+
+\end{ennumerate}
 
 ## 3.2 \hspace{0.25cm} Model Construction Methods
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -127,7 +164,6 @@ DANKNUGGIES.
 DANKNUGGIES.
 
 ## 3.3 \hspace{0.25cm} Application to the Pima Indians Diabetes Study 
-[//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 [//]: 1) Explain Model's Answers to Research Questions    %
 [//]: 2) Contextualize Assumptions and Results to the     %
 [//]:    Problem of Interest                              %

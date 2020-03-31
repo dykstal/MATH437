@@ -271,7 +271,7 @@ When this is finished, we compute the mean misclassification rate for each disti
 
 ![](/home/adykstal@corp.icr-team.com/MyGit/MATH437/FinalReport/knnCV.png)
 
-We see that FILLMEINYOUFUCK.
+We see that the value $k = 21$ minimizes the mean misclassification rate over the 10 folds. So, we select $k = 21$ as the nearest neighbors hyperparameter for our model.
 
 With all the model parameters selected, our model selection process involves fitting the $k$NN model to the Pima Indians Diabetes dataset in two distinct ways:
 \begin{enumerate}

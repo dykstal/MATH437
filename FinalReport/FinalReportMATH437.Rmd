@@ -58,14 +58,19 @@ For each of these methods, we cover the necessary model assumptions, our model c
 [//]: 2) Preview the Checks of Assumptions                %
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-TODO -> REFORMAT TO MATCH OTHER SECTIONS.
-
-The assumptions needed for validity of QDA are:
+To ensure the validity of its modeling, we must make the following assumptions for the Quadratic Discriminant Analysis (QDA) approach:
 \begin{enumerate}
-\item Each group has at least as many entries as there are features. [2]
-\item Different covariance for each of the response classes. That is, for ex – $\sigma_{k1}$, $\sigma_{k2}$, $\sigma_{k3}$ for response class $k1$, $k2$, $k3$ etc.
-\item Distribution of observations in each of the response class is normal with a class-specific mean ($\mu_k$) and class-specific covariance ($\sigma_{k2}$).
+  \item Each group (class) has at least as many entries as there are total features in the model. [2]
+  \item The covariates -- stratified by each of the classes in the response -- have different covariance matrices. In our case, there are only two classes: diabetic and non-diabetic. Thus, there is a covariance matrix for covariates corresponding to diabetic observations ($\Sigma_{\text{diabetic}}$) and covariates corresponding to non-diabetic observations ($\Sigma_{\text{non-diabetic}}$).
+  \item The observations in each of the response classes are normally distributed with a class-specific mean and class-specific variance. That is, the distributions of each individual covariate -- stratified by class -- is normally distributed. But, these normal distributions need not be the same.
 \end{enumerate}
+We can summarize the final two assumptions listed above by saying that the diabetic and non-diabetic groups are distributed multivariate normal with the diabetic group having mean $\boldsymbol{\mu}_{\text{diabetic}}$ and covariance $\Sigma_{\text{diabetic}}$ and the non-diabetic group having mean $\boldsymbol{\mu}_{\text{non-diabetic}}$ and covariance $\Sigma_{\text{non-diabetic}}$.
+
+With these assumptions, the QDA classifier works by choosing the group that minimizes the quantity
+\begin{equation*}
+  \log| \Sigma_k | + (\boldsymbol{x} - \boldsymbol{\mu}_k)^T \Sigma_k^{-1} (\boldsymbol{x} - \boldsymbol{\mu}_k) - 2 \log p_k,
+\end{equation*}
+where $k$ is either diabetic or non-diabetic, $p_k$ is the prior probability of class $k$, and $\boldsymbol{x}$ are the covariates for the item to be classified. Ultimately, we do not know $\boldsymbol{\mu}_k$ and $\Sigma_k$ for any class, so we replace them with their sample counterparts. These sample statistics are constructed from the training data, which are labeled and have the same covariates as the item to be classified.
 
 ## 2.2 \hspace{0.25cm} Model Construction Methods
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -155,11 +160,11 @@ TODO -> REFIT QDA WITHOUT VIOLATING COVARIATES.
 
 The logistic regression approach to binary classification problems requires the following assumptions for the validity of the model:
 \begin{enumerate}
-  \item The response is binary, meaning observations either belong to class zero or class one. In the Pima Indians Diabetes dataset, each observation is either classified as testing positive for Type II diabetes or not, so this assumption holds in our experiement. [2]
+  \item The response is binary, meaning observations either belong to class zero or class one. In the Pima Indians Diabetes dataset, each observation is either classified as testing positive for Type II diabetes or not, so this assumption holds in our experiement. [3]
  
-  \item The observations in the data are independent. In the Pima Indians Diabetes dataset, individual observations are distinct and are drawn from a simple random sample of the Pima Indian population. Thus, there is reasonable evidence that observations are independent in our experiment. [2]
+  \item The observations in the data are independent. In the Pima Indians Diabetes dataset, individual observations are distinct and are drawn from a simple random sample of the Pima Indian population. Thus, there is reasonable evidence that observations are independent in our experiment. [3]
 
-  \item The covariates are not collinear. To check this assumption, we must plot each combination of two covariates against each other to see if there appears to be a strong linear association between them. We will check this assumption in detail in Section 3.4. [2]
+  \item The covariates are not collinear. To check this assumption, we must plot each combination of two covariates against each other to see if there appears to be a strong linear association between them. We will check this assumption in detail in Section 3.4. [3]
 
   \item Each observation is a Bernoulli trial. The success probability of these Bernoulli trials is determined by the model. 
 \end{enumerate}
@@ -259,21 +264,25 @@ DANKNUGGIES.
 [//]:    Problem of Interest                              %
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-DANKNUGGIES.
+After fitting the $k$NN model to the Pima Indians Diabetes dataset, we predict the classifications for each of the individuals in the data. When using the entire data set to both train and test the model, the confusion matrix (with actual values on the rows and predicted values on the columns) is:
+\begin{center}
+\begin{tabular}{c|c|c} 
+                & Diabetic & Non-Diabetic \\\hline
+   Diabetic     & 326      & 29           \\\hline
+   Non-Diabetic & 80       & 97           
+\end{tabular}
+\end{center}
+In this case, 423 of the 532 observations are classified correctly, giving a misclassification rate of roughly 20.489\% and an accuracy of about 79.511\%. This suggests that -- if we were to classify a random sample of 100 new females from the Pima Indian population -- we would expect to correctly classify the diabetic status of about 80 individuals and incorrectly classify the remaining 20.
 
-RESULTS:
-```
-  FinalFit
-      0   1
-  0 326  29
-  1  80  97
-[1] 0.2048872
-   pcv
-      1   2
-  0 318  37
-  1  85  92
-[1] 0.2293233
-```
+When using leave-one-out cross validation, the confusion matrix (with actual values on the rows and predicted values on the columns) is:
+\begin{center}
+\begin{tabular}{c|c|c} 
+                & Diabetic & Non-Diabetic \\\hline
+   Diabetic     & 318      & 37           \\\hline
+   Non-Diabetic & 85       & 92           
+\end{tabular}
+\end{center}
+In this case, 410 of the 532 observations are classified correctly, giving a misclassification rate of roughly 22.932\% and an accuracy of about 77.067\%. This suggests that -- if we were to classify a random sample of 100 new females from the Pima Indian population -- we would expect to correctly classify the diabetic status of about 77 individuals and incorrectly classify the remaining 23.
 
 ## 4.4 \hspace{0.25cm} Model Limitations \& Appropriateness
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -387,21 +396,68 @@ group1 <- subset(BigChungus,
                  isDiabetic == 0)
 group2 <- subset(BigChungus,
                  isDiabetic == 1)
-#par(mfrow = c(8, 2))
-#for (i in 1:8) {
-#  hist(group1[,i],
-#       main = NULL,
-#       xlab = NULL,
-#       ylab = NULL)
-#  hist(group2[,i],
-#       main = NULL,
-#       xlab = NULL,
-#       ylab = NULL)
-#}
-#This plot can be viewed in section 2.4
+par(mfrow = c(8, 2))
+for (i in 1:8) {
+  hist(group1[,i],
+       main = NULL,
+       xlab = NULL,
+       ylab = NULL)
+  hist(group2[,i],
+       main = NULL,
+       xlab = NULL,
+       ylab = NULL)
+}
+
+# Fit the QDA Model to the Diabetes Data
+fitQDA <- qda(isDiabetic ~ .,
+              data = BigChungus,
+              prior = c(0.67, 0.33))
+predictQDA <- predict(fitQDA, BigChungus)
+classPredictions <- predictQDA$class
+
+# Create the Confusion Matrix
+Confusion <- table(BigChungus[,9],
+                   classPredictions)
+Confusion
+
+# Estimate the Misclassification Rate
+numCorrect <- sum(diag(Confusion))
+numEstimated <- sum(Confusion)
+accuracy <- numCorrect / numEstimated
+misclassRate <- 1 - accuracy
+misclassRate
+
+# Now Use Leave-One-Out Cross Validation
+n <- nrow(BigChungus)
+classPredictions <- rep(0, n)
+for (i in 1:n) {
+  fitQDA <- qda(isDiabetic ~ .,
+                data = BigChungus[-i,],
+                prior = c(0.67, 0.33))
+  predictQDA <- predict(fitQDA, BigChungus[i,])
+  classPredictions[i] <- as.numeric(predictQDA$class) - 1
+}
+
+# Create the Confusion Matrix
+Confusion <- table(BigChungus[,9],
+                   classPredictions)
+Confusion
+
+# Estimate the Misclassification Rate
+numCorrect <- sum(diag(Confusion))
+numEstimated <- sum(Confusion)
+accuracy <- numCorrect / numEstimated
+misclassRate <- 1 - accuracy
+misclassRate
+```
+We noted in Section 2.4 that there are some variables that violate the assumption of normality among the covariates. To provide a model that more closely meets the assumptions of QDA, we remove these covariates from the dataset and refit our QDA model.
+```{r, eval=FALSE}
+# Bring in the MASS Library for QDA
+library(MASS)
 
 # Remove Violating Columns Before Analysis
 QDAChungus <- BigChungus[,-c(1,5,8)]
+
 # Fit the QDA Model to the Diabetes Data
 fitQDA <- qda(isDiabetic ~ .,
               data = QDAChungus,

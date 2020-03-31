@@ -252,9 +252,17 @@ The $k$NN algorithm assigns a predicted class to an observation whose vector of 
 [//]: 1) Describe Procedures to Construct the Model       %
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-To construct the $k$NN model, we first select the hyperparameters. As mentioned in the previous section, the hyperparameters are the vector norm to measure distance between covariate vectors and the natural number $k$ that stores the number of "nearest neighbors" to look at during classification. By convention for this course, we choose the $\ell_2$ norm to measure the (Euclidean) distance between covariate vectors. But, to select a proper value of $k$, we employ 10-fold cross validation. Specifically, we split the Pima Indians Diabetes dataset into 10 random folds with roughly the same number of observations. Then, each of these 10 folds 
+To construct the $k$NN model, we first select the hyperparameters. As mentioned in the previous section, the hyperparameters are the vector norm to measure distance between covariate vectors and the natural number $k$ that stores the number of "nearest neighbors" to look at during classification. By convention for this course, we choose the $\ell_2$ norm to measure the (Euclidean) distance between covariate vectors. But, to select a proper value of $k$, we employ 10-fold cross validation. Specifically, we split the Pima Indians Diabetes dataset into 10 random folds with roughly the same number of observations. Then, we repeat the following process for each of the 10 distinct folds.
+\begin{itemize}
+  \item Select the current fold and specify it as the testing data. Specify the remaining 9 folds as the training data.
+  \item Create a grid of the possible values of $k$ between 1 and $\dfrac{n}{2}$, where $n$ is the number of observations in the whole data set.
+  \item For each value of $k$ in the grid, fit a $k$NN model to the training data (which we recall are the 9 folds \emph{not} selected as the testing data). Use this $k$NN model to predict the classes of the testing data. Compute the estimated misclassification rate.
+\end{itemize}
+When this is finished, we compute the mean misclassification rate for each distinct value of $k$ tested in the steps listed above. Then, we plot this mean misclassification rate versus the tested values of $k$. This way, we can visualize which value of $k$ minimizes the mean misclassification rates over the 10 folds. This plot is given below:   
 
 ![](/home/adykstal@corp.icr-team.com/MyGit/MATH437/FinalReport/knnCV.png)
+
+We see that FILLMEINYOUFUCK.
 
 ## 4.3 \hspace{0.25cm} Application to the Pima Indian Diabetes Study
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

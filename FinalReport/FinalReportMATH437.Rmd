@@ -336,8 +336,16 @@ DANKNUGGIES.
 [//]:    Referencing the Review of the Analysis           %
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-DANKNUGGIES.
+In comparing the results of our three different methodologies, we summarize the results as follows: 
 
+\begin{tabular}{c|c|c}\hline
+         Method & Accuracy & Cross-Validated Accuracy\\\hline
+                       QDA & 77.444\% & 76.503\%\\\hline 
+       Logistic Regression & 78.383\% & \bold{78.007\%}\\\hline
+                     $k$NN & 79.511\% & 77.067\%\\\hline
+\end{tabular}
+
+Obviously the Logistic Regression method yields the best accuracy after cross-validation. 
 \newpage
 
 # References

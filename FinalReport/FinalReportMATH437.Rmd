@@ -186,7 +186,25 @@ DANKNUGGIES.
 [//]:    Problem of Interest                              %
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-DANKNUGGIES.
+After fitting the Logistic Regression model to the Pima Indians Diabetes dataset, we predict the classifications for each of the individuals in the data. When using the entire data set to both train and test the model, the confusion matrix (with actual values on the rows and predicted values on the columns) is:
+\begin{center}
+\begin{tabular}{c|c|c} 
+                & Diabetic & Non-Diabetic \\\hline
+   Diabetic     & 316      & 39           \\\hline
+   Non-Diabetic & 76       & 101           
+\end{tabular}
+\end{center}
+In this case, 417 of the 532 observations are classified correctly, giving a misclassification rate of roughly 21.61654\% and an accuracy of about 78.38346\%. This suggests that -- if we were to classify a random sample of 100 new females from the Pima Indian population -- we would expect to correctly classify the diabetic status of about 78 individuals and incorrectly classify the remaining 22.
+
+When using leave-one-out cross validation, the confusion matrix (with actual values on the rows and predicted values on the columns) is:
+\begin{center}
+\begin{tabular}{c|c|c} 
+                & Diabetic & Non-Diabetic \\\hline
+   Diabetic     & 315      & 40           \\\hline
+   Non-Diabetic & 77       & 100           
+\end{tabular}
+\end{center}
+In this case, 415 of the 532 observations are classified correctly, giving a misclassification rate of roughly 21.99248\% and an accuracy of about 78.00752\%. This suggests that -- if we were to classify a random sample of 100 new females from the Pima Indian population -- we would expect to correctly classify the diabetic status of about 78 individuals and incorrectly classify the remaining 22.
 
 RESULTS:
 ```

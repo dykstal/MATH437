@@ -77,7 +77,14 @@ where $k$ is either diabetic or non-diabetic, $p_k$ is the prior probability of 
 [//]: 1) Describe Procedures to Construct the Model       %
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-DANKNUGGIES.
+TODO -> PRIOR PARAMETER SELECTION JUSTIFICATION.
+
+With all the model parameters selected, our model selection process involves fitting the QDA model to the Pima Indians Diabetes dataset in two distinct ways:
+\begin{enumerate}
+  \item First, we fit the QDA model to the entire dataset. That is, we use each observation for training and testing. In the context of QDA, this means that -- for an observation we are trying to classify -- the sample mean and covariance for this observation's labeled class will depend on the covariates associated with this observation.
+  \item Next, we fit the QDA model to the dataset using leave-one-out cross-validation. That is, for each observation in our data, we predict that point from the model that is trained on every other point. In the context of QDA, leave-one-out cross validation ensures that the sample mean and covariance do not depend on the covariates corresponding to the observation we are trying to classify.
+\end{enumerate}
+In both of these cases, we keep track of the number of correctly classified and incorrectly classified observations for each group. By doing so, we construct a confusion matrix showing how frequently individuals are either correctly or incorrectly characterized as diabetic or non-diabetic. As a consequence, we can also compute the experimental accuracy and misclassification rate to estimate the goodness-of-fit for our QDA model.
 
 ## 2.3 \hspace{0.25cm} Application to the Pima Indians Diabetes Study
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -187,7 +194,14 @@ is greater than or equal to 0.5. Here, the vector $\boldsymbol{\hat{\beta}}$ is 
 [//]: 1) Describe Procedures to Construct the Model       %
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-DANKNUGGIES.
+TODO -> Explain maxit parameter choice.
+
+Our model selection process involves fitting the Logistic Regression model to the Pima Indians Diabetes dataset in two distinct ways:
+\begin{enumerate}
+  \item First, we fit the Logistic Regression model to the entire dataset. That is, we use each observation for training and testing. In the context of Logistic Regression, this means that -- for an individual we want to classify -- the likelihood that the individual belongs in a given class is calculated using a set of observations that includes the individual. 
+  \item Next, we fit the Logistic Regression model to the dataset using leave-one-out cross-validation. That is, for each observation in our data, we predict that point from the model that is trained on every other point. In the context of Logistic Regression, leave-one-out cross validation ensures that the likelihood for an individual's class membership is independent of that individual's associated label and covariates.
+\end{enumerate}
+As with our QDA approach, we keep track of the number of correctly classified and incorrectly classified observations for each group in either of the cases above. That way, we can still construct a confusion matrix and compute the experimental accuracy and misclassification rate to estimate the goodness-of-fit for our Logistic Regression model.
 
 ## 3.3 \hspace{0.25cm} Application to the Pima Indians Diabetes Study 
 [//]: 1) Explain Model's Answers to Research Questions    %
@@ -237,6 +251,8 @@ TODO -> FIX THESE PLOTS TO MATCH CLEAN DATA/HAVE AXIS TITLES.
 
 ![](/home/adykstal@corp.icr-team.com/MyGit/MATH437/FinalReport/covPlots2.png)
 
+TODO -> IS THE MODEL GUCCI?
+
 \newpage
 
 # 4 \hspace{0.25cm} The $k$-Nearest Neighbors Approach
@@ -276,9 +292,9 @@ We see that the value $k = 21$ minimizes the mean misclassification rate over th
 With all the model parameters selected, our model selection process involves fitting the $k$NN model to the Pima Indians Diabetes dataset in two distinct ways:
 \begin{enumerate}
   \item First, we fit the $k$NN model to the entire dataset. That is, we use each observation for training and testing. In the context of $k$NN, this means that the $k$ nearest neighbors to each point in the test set include the point itself.
-  \item Next, we fit the $k$NN model to the dataset using leave-one-out cross-validation. That is, for each observation in our data, we predict that point from the model that is trained on every other point.
+  \item Next, we fit the $k$NN model to the dataset using leave-one-out cross-validation. That is, for each observation in our data, we predict that point from the model that is trained on every other point. In the context of $k$NN, leave-one-out cross validation ensures that the $k$ nearest neighbors for a given point in the test set do not include that point.
 \end{enumerate}
-In both of these cases, we keep track of the number of correctly classified and incorrectly classified observations for each group. By doing so, we construct a confusion matrix showing how frequently individuals are either correctly or incorrectly characterized as diabetic or non-diabetic. As a consequence, we can also compute the experimental accuracy and misclassification rate to estimate the goodness-of-fit for our $k$NN model. The primary difference between using the entire data for training and using leave-one-out cross-validation is that the cross-validation strategy excludes the point we are classifying from the training data. As such, the leave-one-out cross-validation removes a small source of bias from our model. In the context of $k$NN, leave-one-out cross validation ensures that the $k$ nearest neighbors for a given point in the test set do not include that point.
+As with our QDA and Logistic Regression approaches, we keep track of the number of correctly classified and incorrectly classified observations for each group in either case listed above. That way, we still construct a confusion matrix and calculate the experimental accuracy and misclassification rate to estimate the goodness-of-fit for our $k$NN model. 
 
 ## 4.3 \hspace{0.25cm} Application to the Pima Indian Diabetes Study
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -323,6 +339,8 @@ In this case, 410 of the 532 observations are classified correctly, giving a mis
 
 DANKNUGGIES.
 
+TODO -> GUCCI?
+
 \newpage
 
 # 5 \hspace{0.25cm} Conclusions
@@ -337,15 +355,20 @@ DANKNUGGIES.
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 In comparing the results of our three different methodologies, we summarize the results as follows: 
-
-\begin{tabular}{c|c|c}\hline
+\begin{center}
+\begin{tabular}{|c|c|c|}\hline
          Method & Accuracy & Cross-Validated Accuracy\\\hline
                        QDA & 77.444\% & 76.503\%\\\hline 
-       Logistic Regression & 78.383\% & \bold{78.007\%}\\\hline
+       Logistic Regression & 78.383\% & \textbf{78.007\%}\\\hline
                      $k$NN & 79.511\% & 77.067\%\\\hline
 \end{tabular}
-
+\end{center}
 Obviously the Logistic Regression method yields the best accuracy after cross-validation. 
+
+TODO -> JUSTIFY WHY WE USE CV (BIAS)
+TODO -> Apply result to the real-world
+TODO -> Summarize Checks of Assumptions/Model Appropriateness
+
 \newpage
 
 # References
@@ -839,4 +862,3 @@ total <- sum(Confusion)
 misclassRate <- 1 - (right / total)
 misclassRate
 ```
-Titty fuck tha lasagna.

@@ -194,7 +194,7 @@ After fitting the Logistic Regression model to the Pima Indians Diabetes dataset
    Non-Diabetic & 76       & 101           
 \end{tabular}
 \end{center}
-In this case, 417 of the 532 observations are classified correctly, giving a misclassification rate of roughly 21.61654\% and an accuracy of about 78.38346\%. This suggests that -- if we were to classify a random sample of 100 new females from the Pima Indian population -- we would expect to correctly classify the diabetic status of about 78 individuals and incorrectly classify the remaining 22.
+In this case, 417 of the 532 observations are classified correctly, giving a misclassification rate of roughly 21.617\% and an accuracy of about 78.383\%. This suggests that -- if we were to classify a random sample of 100 new females from the Pima Indian population -- we would expect to correctly classify the diabetic status of about 78 individuals and incorrectly classify the remaining 22.
 
 When using leave-one-out cross validation, the confusion matrix (with actual values on the rows and predicted values on the columns) is:
 \begin{center}
@@ -204,21 +204,7 @@ When using leave-one-out cross validation, the confusion matrix (with actual val
    Non-Diabetic & 77       & 100           
 \end{tabular}
 \end{center}
-In this case, 415 of the 532 observations are classified correctly, giving a misclassification rate of roughly 21.99248\% and an accuracy of about 78.00752\%. This suggests that -- if we were to classify a random sample of 100 new females from the Pima Indian population -- we would expect to correctly classify the diabetic status of about 78 individuals and incorrectly classify the remaining 22.
-
-RESULTS:
-```
-class
-      0   1
-  0 316  39
-  1  76 101
-[1] 0.2161654
-   pcv
-      0   1
-  0 315  40
-  1  77 100
-[1] 0.2199248
-```
+In this case, 415 of the 532 observations are classified correctly, giving a misclassification rate of roughly 21.992\% and an accuracy of about 78.007\%. This suggests that -- if we were to classify a random sample of 100 new females from the Pima Indian population -- we would expect to correctly classify the diabetic status of about 78 individuals and incorrectly classify the remaining 22.
 
 ## 3.4 \hspace{0.25cm} Model Limitations \& Appropriateness 
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -266,7 +252,7 @@ The $k$NN algorithm assigns a predicted class to an observation whose vector of 
 [//]: 1) Describe Procedures to Construct the Model       %
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-To construct the $k$NN model, we first select the hyperparameters. As mentioned in the previous section, the hyperparameters are the vector norm to measure distance between covariate vectors and the natural number $k$ that stores the number of "nearest neighbors" to look at during classification. By convention for this course, we choose the $\ell_2$ norm to measure the (Euclidean) distance between covariate vectors. But, to select $k$, DESCRIBE YOU FUCK.
+To construct the $k$NN model, we first select the hyperparameters. As mentioned in the previous section, the hyperparameters are the vector norm to measure distance between covariate vectors and the natural number $k$ that stores the number of "nearest neighbors" to look at during classification. By convention for this course, we choose the $\ell_2$ norm to measure the (Euclidean) distance between covariate vectors. But, to select a proper value of $k$, we employ $p$-fold cross validation. Specifically, 
 
 ![](/home/adykstal@corp.icr-team.com/MyGit/MATH437/FinalReport/knnCV.png)
 

@@ -273,6 +273,13 @@ When this is finished, we compute the mean misclassification rate for each disti
 
 We see that FILLMEINYOUFUCK.
 
+With all the model parameters selected, our model selection process involves fitting the $k$NN model to the Pima Indians Diabetes dataset in two distinct ways:
+\begin{enumerate}
+  \item First, we fit the $k$NN model to the entire dataset. That is, we use each observation for training and testing. In the context of $k$NN, this means that the $k$ nearest neighbors to each point in the test set include the point itself.
+  \item Next, we fit the $k$NN model to the dataset using leave-one-out cross-validation. That is, for each observation in our data, we predict that point from the model that is trained on every other point.
+\end{enumerate}
+In both of these cases, we keep track of the number of correctly classified and incorrectly classified observations for each group. By doing so, we construct a confusion matrix showing how frequently individuals are either correctly or incorrectly characterized as diabetic or non-diabetic. As a consequence, we can also compute the experimental accuracy and misclassification rate to estimate the goodness-of-fit for our $k$NN model. The primary difference between using the entire data for training and using leave-one-out cross-validation is that the cross-validation strategy excludes the point we are classifying from the training data. As such, the leave-one-out cross-validation removes a small source of bias from our model. In the context of $k$NN, leave-one-out cross validation ensures that the $k$ nearest neighbors for a given point in the test set do not include that point.
+
 ## 4.3 \hspace{0.25cm} Application to the Pima Indian Diabetes Study
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 [//]: 1) Explain Model's Answers to Research Questions    %
@@ -362,7 +369,7 @@ DANKNUGGIES.
 
 \ \ \ \ \ "Logistic and Linear Regression Assumptions: Violation Recognition and Control"
 
-\ \ \ \ \ \texttt{https://www.lexjansen.com/wuss/2018/130_Final_Paper_PDF.pdf}
+\ \ \ \ \ \texttt{https://www.lexjansen.com/wuss/2018/130\_Final\_Paper\_PDF.pdf}
 
 \ \ \ \ \ Published 2018
 
@@ -824,3 +831,4 @@ total <- sum(Confusion)
 misclassRate <- 1 - (right / total)
 misclassRate
 ```
+Titty fuck tha lasagna.

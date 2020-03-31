@@ -84,6 +84,8 @@ DANKNUGGIES.
 DANKNUGGIES.
 
 RESULTS:
+
+(These are from before we removed the violating columns)
 ```
 classPredictions
       0   1
@@ -97,6 +99,19 @@ classPredictions
 [1] 0.25
 ```
 
+(After removal)
+```
+classPredictions
+      0   1
+  0 316  39
+  1  81  96
+[1] 0.2255639
+   classPredictions
+      0   1
+  0 314  41
+  1  84  93
+[1] 0.2349624
+```
 ## 2.4 \hspace{0.25cm} Model Limitations \& Appropriateness 
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 [//]: 1) Discuss the Limitations of this Approach as Seen %
@@ -372,28 +387,30 @@ group1 <- subset(BigChungus,
                  isDiabetic == 0)
 group2 <- subset(BigChungus,
                  isDiabetic == 1)
-par(mfrow = c(8, 2))
-for (i in 1:8) {
-  hist(group1[,i],
-       main = NULL,
-       xlab = NULL,
-       ylab = NULL)
-  hist(group2[,i],
-       main = NULL,
-       xlab = NULL,
-       ylab = NULL)
-}
+#par(mfrow = c(8, 2))
+#for (i in 1:8) {
+#  hist(group1[,i],
+#       main = NULL,
+#       xlab = NULL,
+#       ylab = NULL)
+#  hist(group2[,i],
+#       main = NULL,
+#       xlab = NULL,
+#       ylab = NULL)
+#}
 #This plot can be viewed in section 2.4
 
+# Remove Violating Columns Before Analysis
+QDAChungus <- BigChungus[,-c(1,5,8)]
 # Fit the QDA Model to the Diabetes Data
 fitQDA <- qda(isDiabetic ~ .,
-              data = BigChungus,
+              data = QDAChungus,
               prior = c(0.67, 0.33))
-predictQDA <- predict(fitQDA, BigChungus)
+predictQDA <- predict(fitQDA, QDAChungus)
 classPredictions <- predictQDA$class
 
 # Create the Confusion Matrix
-Confusion <- table(BigChungus[,9],
+Confusion <- table(QDAChungus[,6],
                    classPredictions)
 Confusion
 
@@ -405,18 +422,18 @@ misclassRate <- 1 - accuracy
 misclassRate
 
 # Now Use Leave-One-Out Cross Validation
-n <- nrow(BigChungus)
+n <- nrow(QDAChungus)
 classPredictions <- rep(0, n)
 for (i in 1:n) {
   fitQDA <- qda(isDiabetic ~ .,
-                data = BigChungus[-i,],
+                data = QDAChungus[-i,],
                 prior = c(0.67, 0.33))
-  predictQDA <- predict(fitQDA, BigChungus[i,])
+  predictQDA <- predict(fitQDA, QDAChungus[i,])
   classPredictions[i] <- as.numeric(predictQDA$class) - 1
 }
 
 # Create the Confusion Matrix
-Confusion <- table(BigChungus[,9],
+Confusion <- table(QDAChungus[,6],
                    classPredictions)
 Confusion
 

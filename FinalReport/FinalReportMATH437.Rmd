@@ -147,8 +147,6 @@ TODO -> REPHRASE FOR CONSISTENCY
 
 From these plots, we can see that "pregnancyNumber", "serumInsulin", and "age" are all non-normally distributed. As such, we will consider omitting these covariates in order to better preserve the accuracy of the situation.
 
-TODO -> REFIT QDA WITHOUT VIOLATING COVARIATES.
-
 \newpage
 
 # 3 \hspace{0.25cm} The Logistic Regression Approach
@@ -161,11 +159,8 @@ TODO -> REFIT QDA WITHOUT VIOLATING COVARIATES.
 The logistic regression approach to binary classification problems requires the following assumptions for the validity of the model:
 \begin{enumerate}
   \item The response is binary, meaning observations either belong to class zero or class one. In the Pima Indians Diabetes dataset, each observation is either classified as testing positive for Type II diabetes or not, so this assumption holds in our experiement. [3]
- 
   \item The observations in the data are independent. In the Pima Indians Diabetes dataset, individual observations are distinct and are drawn from a simple random sample of the Pima Indian population. Thus, there is reasonable evidence that observations are independent in our experiment. [3]
-
   \item The covariates are not collinear. To check this assumption, we must plot each combination of two covariates against each other to see if there appears to be a strong linear association between them. We will check this assumption in detail in Section 3.4. [3]
-
   \item Each observation is a Bernoulli trial. The success probability of these Bernoulli trials is determined by the model. 
 \end{enumerate}
 According to our logistic regression model, we define the success probability for each observation as
@@ -246,14 +241,14 @@ The $k$-nearest neighbors approach explicitly assumes that observations are more
 \end{enumerate}
 For our purposes, we meet each of these assumptions. After all, each of the 768 observations in the Pima Indians Diabetes dataset is labeled (since every observation is marked as either positive or negative for Type II diabetes) and has a vector of the same covariates. All of these covariates are numeric and there are no null values, so there is no violation of $k$NN model assumptions stemming from the data. Additionally, we employ a $k$NN model that uses the $\ell_2$-norm (Euclidean distance) to measure distance between covariate vectors. So, each of the assumptions necessary for this approach are met.
 
-The $k$NN algorithm assigns a predicted class to an observation whose vector of covariates is $\boldsymbol{x}$. With the hyperparameters we specified, this classification is performed by locating the $k$ closest covariate vectors (using Euclidean distance as the norm) to $\boldsymbol{x}$ in the training data. These $k$ elements of the training data are called the "nearest neighbors" of the item to be classified. Since these training data are labeled, we collect the $k$ classification labels for the $k$ nearest neighbors of the item to be classified. The item is classified to the classification label that is most represented in the sample of $k$. 
+The $k$NN algorithm assigns a predicted class to an observation whose vector of covariates is $\boldsymbol{x}$. With the hyperparameters we specified, this classification is performed by locating the $k$ closest covariate vectors (using Euclidean distance as the norm) to $\boldsymbol{x}$ in the training data. These $k$ elements of the training data are called the "nearest neighbors" of the item to be classified. Since these training data are labeled, we collect the $k$ classification labels (in the training data) for the $k$ nearest neighbors of the item to be classified. The item is classified to the classification label that is most represented in the sample of $k$. 
 
 ## 4.2 \hspace{0.25cm} Model Construction Methods
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 [//]: 1) Describe Procedures to Construct the Model       %
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-DANKNUGGIES.
+To construct the $k$NN model, we first select the hyperparameters. As mentioned in the previous section, the hyperparameters are the vector norm to measure distance between covariate vectors and the natural number $k$ that stores the number of "nearest neighbors" to look at during classification. By convention for this course, we choose the $\ell_2$ norm to measure the (Euclidean) distance between covariate vectors. But, to select $k$, DESCRIBE YOU FUCK.
 
 ![](/home/adykstal@corp.icr-team.com/MyGit/MATH437/FinalReport/knnCV.png)
 

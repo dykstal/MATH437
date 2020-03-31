@@ -86,37 +86,26 @@ DANKNUGGIES.
 [//]:    Problem of Interest                              %
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-DANKNUGGIES.
+After fitting QDA model to the Pima Indians Diabetes dataset, we predict the classifications for each of the individuals in the data. When using the entire data set to both train and test the model, the confusion matrix (with actual values on the rows and predicted values on the columns) is:
+\begin{center}
+\begin{tabular}{c|c|c} 
+                & Diabetic & Non-Diabetic \\\hline
+   Diabetic     & 307      & 48           \\\hline
+   Non-Diabetic & 71       & 106           
+\end{tabular}
+\end{center}
+In this case, 413 of the 532 observations are classified correctly, giving a misclassification rate of roughly 22.368\% and an accuracy of about 77.632\%. This suggests that -- if we were to classify a random sample of 100 new females from the Pima Indian population -- we would expect to correctly classify the diabetic status of about 78 individuals and incorrectly classify the remaining 22.
 
-RESULTS:
+When using leave-one-out cross validation, the confusion matrix (with actual values on the rows and predicted values on the columns) is:
+\begin{center}
+\begin{tabular}{c|c|c} 
+                & Diabetic & Non-Diabetic \\\hline
+   Diabetic     & 299      & 56           \\\hline
+   Non-Diabetic & 77       & 100           
+\end{tabular}
+\end{center}
+In this case, 399 of the 532 observations are classified correctly, giving a misclassification rate of 25\% and an accuracy of 75\%. This suggests that -- if we were to classify a random sample of 100 new females from the Pima Indian population -- we would expect to correctly classify the diabetic status of about 75 individuals and incorrectly classify the remaining 25.
 
-(These are from before we removed the violating columns)
-```
-classPredictions
-      0   1
-  0 307  48
-  1  71 106
-[1] 0.2236842
-   classPredictions
-      0   1
-  0 299  56
-  1  77 100
-[1] 0.25
-```
-
-(After removal)
-```
-classPredictions
-      0   1
-  0 316  39
-  1  81  96
-[1] 0.2255639
-   classPredictions
-      0   1
-  0 314  41
-  1  84  93
-[1] 0.2349624
-```
 ## 2.4 \hspace{0.25cm} Model Limitations \& Appropriateness 
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 [//]: 1) Discuss the Limitations of this Approach as Seen %
@@ -147,8 +136,25 @@ TODO -> REPHRASE FOR CONSISTENCY
 
 From these plots, we can see that "pregnancyNumber", "serumInsulin", and "age" are all non-normally distributed. As such, we will consider omitting these covariates in order to better preserve the accuracy of the situation.
 
-TODO -> REFIT QDA WITHOUT VIOLATING COVARIATES.
+Upon removing the violating covariates, our new confusion matrices for QDA are
+\begin{center}
+\begin{tabular}{c|c|c} 
+                & Diabetic & Non-Diabetic \\\hline
+   Diabetic     & 316      & 39           \\\hline
+   Non-Diabetic & 81       & 96           
+\end{tabular}
+\end{center}
+In this case, 412 of the 532 observations are classified correctly, giving a misclassification rate of roughly 22.556\% and an accuracy of about 77.444\%. This suggests that -- if we were to classify a random sample of 100 new females from the Pima Indian population -- we would expect to correctly classify the diabetic status of about 77 individuals and incorrectly classify the remaining 23.
 
+When using leave-one-out cross validation, the confusion matrix (with actual values on the rows and predicted values on the columns) is:
+\begin{center}
+\begin{tabular}{c|c|c} 
+                & Diabetic & Non-Diabetic \\\hline
+   Diabetic     & 314      & 41           \\\hline
+   Non-Diabetic & 84       & 93           
+\end{tabular}
+\end{center}
+In this case, 407 of the 532 observations are classified correctly, giving a misclassification rate of roughly 23.497\% and an accuracy of about 76.503\%. This suggests that -- if we were to classify a random sample of 100 new females from the Pima Indian population -- we would expect to correctly classify the diabetic status of about 77 individuals and incorrectly classify the remaining 23.
 \newpage
 
 # 3 \hspace{0.25cm} The Logistic Regression Approach

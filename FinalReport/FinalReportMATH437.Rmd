@@ -226,7 +226,7 @@ The $k$-nearest neighbors approach explicitly assumes that observations are more
 \end{enumerate}
 For our purposes, we meet each of these assumptions. After all, each of the 768 observations in the Pima Indians Diabetes dataset is labeled (since every observation is marked as either positive or negative for Type II diabetes) and has a vector of the same covariates. All of these covariates are numeric and there are no null values, so there is no violation of $k$NN model assumptions stemming from the data. Additionally, we employ a $k$NN model that uses the $\ell_2$-norm (Euclidean distance) to measure distance between covariate vectors. So, each of the assumptions necessary for this approach are met.
 
-TODO -> DESCRIBE THE ALGORITHM.
+The $k$NN algorithm assigns a predicted class to an observation whose vector of covariates is $\boldsymbol{x}$. With the hyperparameters we specified, this classification is performed by locating the $k$ closest covariate vectors (using Euclidean distance as the norm) to $\boldsymbol{x}$ in the training data. These $k$ elements of the training data are called the "nearest neighbors" of the item to be classified. Since these training data are labeled, we collect the $k$ classification labels for the $k$ nearest neighbors of the item to be classified. The item is classified to the classification label that is most represented in the sample of $k$. 
 
 ## 4.2 \hspace{0.25cm} Model Construction Methods
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

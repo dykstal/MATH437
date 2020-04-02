@@ -205,12 +205,10 @@ is greater than or equal to 0.5. Here, the vector $\boldsymbol{\hat{\beta}}$ is 
 [//]: 1) Describe Procedures to Construct the Model       %
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-TODO -> Explain maxit parameter choice. Basically it's just that 10000 guarantees that we iterate a sufficient number of times.
-
 Our model selection process involves fitting the Logistic Regression model to the Pima Indians Diabetes dataset in two distinct ways:
 \begin{enumerate}
   \item First, we fit the Logistic Regression model to the entire dataset. That is, we use each observation for training and testing. In the context of Logistic Regression, this means that -- for an individual we want to classify -- the likelihood that the individual belongs in a given class is calculated using a set of observations that includes the individual. 
-  \item We continue by choosing the hyper-parameter \texttt{maxit}. \texttt{maxit} is the maximum number of itterations in the algorithm's search for the minimum of the liklihood. We choose \texttt{maxit} as 10000 because it finds a balance in computational feasibility and accuracy.  
+  \item We continue by choosing the hyper-parameter \texttt{maxit}. The \texttt{maxit} is the maximum number of itterations in the algorithm's search for the minimum of the liklihood. We choose \texttt{maxit} as 10,000 because it finds a balance in computational feasibility and accuracy.  
   \item Next, we fit the Logistic Regression model to the dataset using leave-one-out cross-validation. That is, for each observation in our data, we predict that point from the model that is trained on every other point. In the context of Logistic Regression, leave-one-out cross validation ensures that the likelihood for an individual's class membership is independent of that individual's associated label and covariates.
 \end{enumerate}
 As with our QDA approach, we keep track of the number of correctly classified and incorrectly classified observations for each group in either of the cases above. That way, we can still construct a confusion matrix and compute the experimental accuracy and misclassification rate to estimate the goodness-of-fit for our Logistic Regression model.
@@ -255,15 +253,11 @@ In this case, 415 of the 532 observations are classified correctly, giving a mis
 [//]:       v) Identify any Outliers                      %
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Finally, we  check the assumption of the absence of multicollinearity by plotting the covariates against one another. Upon looking at the below plots, we see no noticable trends. Therefore, we conclude that this assumtion is valid, and that we can use Logistic Regression to classify on this dataset. 
-
-TODO -> FIX THESE PLOTS TO MATCH CLEAN DATA/HAVE AXIS TITLES.
+Finally, we  check the assumption of the absence of multicollinearity by plotting the covariates against one another. Upon looking at the below plots, we see no noticable trends, including linear trends. Therefore -- since no two covariates appear to be strongly linearly associated with each other -- we conclude that this assumtion is valid. As such, we can conclude that Logistic Regression is reasonably appropriate for classifying the diabetic status of individuals in the Pima Indian population.
 
 ![](/home/adykstal@corp.icr-team.com/MyGit/MATH437/FinalReport/covPlots1.png)
 
 ![](/home/adykstal@corp.icr-team.com/MyGit/MATH437/FinalReport/covPlots2.png)
-
-TODO -> IS THE MODEL GUCCI? yep. none of the covs look like they're correlated with others on a line.
 
 \newpage
 

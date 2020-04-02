@@ -136,23 +136,15 @@ In this case, 399 of the 532 observations are classified correctly, giving a mis
 
 Now, we will check each of the three assumptions stated in Section 2.1 of this report. First, we must assume that classes have a number of observations greater than or equal to the total number of features in the model. As seen in the table in Section 2.2, both classes have at least 177 observations. This is greater than the total number of model features, which is eight (after all, one feature is presented for each covariate).
 
-Next, the capability for distinct covariates to have different covariance matrices is built into the QDA model; this assumption cannot be violated in this sense. So, we can proceed to checking our final assumption. This assumption -- which states that the INSERT -- requires us to look at the sample distributions of each covariate in our data.
+Next, the capability for distinct covariates to have different covariance matrices is built into the QDA model; this assumption cannot be violated in this sense. So, we can proceed to checking our final assumption. This assumption -- which states that the covariates are distributed multivariate normal -- requires us to look at the sample distributions of each covariate in our data.
 
-TODO -> formalize this.
-\begin{enumerate}
-\item There are 177 observations in the smallest group (isDiabetic == 1), and only 8 variables, so this requirement is satisfied.
-\item We assume that each response class has a different covariance matrix.
-\item By separating the data into the two groups, and then constructing histograms of each variable, we can see which observations appear normally distributed within a particular class. Below is a figure containing these histograms. The first column contains data from all non-diabetic entries, and the second contains all diabetic entries. Then, each row is a particular variable. In order, the rows are "pregnancyNumber", "glucoseConcentration", "bloodPressure", "tricepThiccness", "serumInsulin", "BMI", "pedigreeFunction", and "age".
-
-\end{enumerate}
+On the following page, we plot histograms for each of the features (covariates) in our model, stratified by class. The first column of plots contains data from all non-diabetic entries and the second contains all diabetic entries. Each row is a particular covariate.
 
 ![](/home/adykstal@corp.icr-team.com/MyGit/MATH437/FinalReport/obsHist.png)
 
-TODO -> REPHRASE FOR CONSISTENCY
+From these plots, we can see that the number of pregnancies ("pregnancyNumber"), the two-hour serum insulin ("serumInsulin"), and the age ("age") are clearly non-normally distributed. The remaining features could reasonably be normally-distributed in the sample. As such, we will re-fit the QDA model, this time omitting the covariates that clearly violate the assumption of normality.
 
-From these plots, we can see that "pregnancyNumber", "serumInsulin", and "age" are all non-normally distributed. As such, we will consider omitting these covariates in order to better preserve the accuracy of the situation.
-
-Upon removing the violating covariates, our new confusion matrices for QDA are
+Upon removing the violating covariates, our new confusion matrix for the QDA model (using the entire data set as the training and testing set) is:
 \begin{center}
 \begin{tabular}{c|c|c} 
                 & Diabetic & Non-Diabetic \\\hline

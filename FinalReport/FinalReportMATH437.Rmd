@@ -243,11 +243,13 @@ In this case, 415 of the 532 observations are classified correctly, giving a mis
 [//]:       v) Identify any Outliers                      %
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Finally, we  check the assumption of the absence of multicollinearity by plotting the covariates against one another. Upon looking at the below plots, we see no noticable trends, including linear trends. One potential exception is the plot of tricep fold thickness versus BMI. In this plot, we concede that these two factors may be related in a linear fashion. But, the linearity is not visually strong. Therefore -- since no two covariates appear to be \emph{strongly} linearly associated with each other -- we conclude that this assumtion is valid. As such, we can conclude that Logistic Regression is reasonably appropriate for classifying the diabetic status of individuals in the Pima Indian population.
+Finally, we  check the assumption of the absence of multicollinearity by plotting the covariates against one another. Upon looking at the below plots, we see one potential exception, that being the plot of tricep fold thickness versus BMI. In this plot, we concede that these two factors may be related in a linear fashion.
 
 ![](/home/adykstal@corp.icr-team.com/MyGit/MATH437/FinalReport/covPlots1.png)
 
 ![](/home/adykstal@corp.icr-team.com/MyGit/MATH437/FinalReport/covPlots2.png)
+
+We remove Body Mass Index as an explainatory covariate, since tricep fold thickness is a better guage of body composition. We recalculate the misclassification rate as follows: 
 
 \newpage
 

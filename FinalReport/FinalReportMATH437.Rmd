@@ -254,8 +254,7 @@ In this case, 415 of the 532 observations are classified correctly, giving a mis
 [//]:       v) Identify any Outliers                      %
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-TODO -> Explain only assumption left is absence of collinearity.
-DANKNUGGIES.
+Finally, we  check the assumption of the absence of multicollinearity by plotting the covariates against one another. Upon looking at the below plots, we see no noticable trends. Therefore, we conclude that this assumtion is valid, and that we can use Logistic Regression to classify on this dataset. 
 
 TODO -> FIX THESE PLOTS TO MATCH CLEAN DATA/HAVE AXIS TITLES.
 

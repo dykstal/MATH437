@@ -243,7 +243,7 @@ In this case, 415 of the 532 observations are classified correctly, giving a mis
 [//]:       v) Identify any Outliers                      %
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Finally, we  check the assumption of the absence of multicollinearity by plotting the covariates against one another. Upon looking at the below plots, we see no noticable trends, including linear trends. Therefore -- since no two covariates appear to be strongly linearly associated with each other (MAYBE EXCEPT THICC VS BMI LMAO) -- we conclude that this assumtion is valid. As such, we can conclude that Logistic Regression is reasonably appropriate for classifying the diabetic status of individuals in the Pima Indian population.
+Finally, we  check the assumption of the absence of multicollinearity by plotting the covariates against one another. Upon looking at the below plots, we see no noticable trends, including linear trends. One potential exception is the plot of tricep fold thickness versus BMI. In this plot, we concede that these two factors may be related in a linear fashion. But, the linearity is not visually strong. Therefore -- since no two covariates appear to be \emph{strongly} linearly associated with each other -- we conclude that this assumtion is valid. As such, we can conclude that Logistic Regression is reasonably appropriate for classifying the diabetic status of individuals in the Pima Indian population.
 
 ![](/home/adykstal@corp.icr-team.com/MyGit/MATH437/FinalReport/covPlots1.png)
 
@@ -756,6 +756,63 @@ plot(BigChungus$pedigreeFunction, BigChungus$age,
      xlab = "Diabetic Pedigree Function",
      ylab = "Age of Person Observed",
      main = "Diabetic Pedigree Function vs. Age")
+```
+Because of the potenital collinearity between the BMI and the FINISH ME FUCK.
+```{r}
+# Bring in the NNET Library for Logistic Regression
+library(nnet)
+
+# Begin Classifying by Logistic Regression
+lrFit <- multinom(isDiabetic ~ .,
+                  data = BigChungus,
+                  trace = FALSE,
+                  maxit = 10000)
+coe <- summary(lrFit)$coefficients
+LittleChungus <- BigChungus[-9]
+nman <- t(LittleChungus)
+logodds <- coe[1] + coe[-1] %*% nman
+logodds <- cbind(0, t(logodds))
+class <- apply(logodds, 1, which.max)
+class <- class - 1
+
+# Construct Confusion Matrix
+Confusion <- table(BigChungus[,9],
+                   class)
+Confusion
+
+# Estimate the Misclassification Rate
+numCorrect <- sum(diag(Confusion))
+numEstimated <- sum(Confusion)
+accuracy <- numCorrect / numEstimated
+misclassRate <- 1 - accuracy
+misclassRate
+
+# Now Try Leave-One-Out Cross-Validation
+n <- length(BigChungus$isDiabetic)
+pcv <- rep(0, n)
+
+for (i in 1:n) {
+  lrFit <- multinom(isDiabetic ~ .,
+                    data = BigChungus[-i,],
+                    trace = FALSE,
+                    maxit = 10000)
+  coe <- summary(lrFit)$coefficients
+  tman <- t(BigChungus[i,-9])
+  logodds <- coe[1] + coe[-1] %*% tman
+  logodds <- cbind(0, t(logodds))
+  pcv[i] <- which.max(logodds) - 1
+}
+
+# Construct Confusion Matrix
+Confusion <- table(BigChungus[,9],pcv)
+Confusion
+
+# Estimate the Misclassification Rate
+numCorrect <- sum(diag(Confusion))
+numEstimated <- sum(Confusion)
+accuracy <- numCorrect / numEstimated
+misclassRate <- 1 - accuracy
+misclassRate
 ```
 
 \newpage

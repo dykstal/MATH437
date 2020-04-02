@@ -78,6 +78,10 @@ where $k$ is either diabetic or non-diabetic, $p_k$ is the prior probability of 
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 TODO -> PRIOR PARAMETER SELECTION JUSTIFICATION. Show dist of obs by class and argue from there.
+\begin{tabular}{|c|c|} \hline
+Diabetic & Non-Diabetic \\ \hline 
+177 & 355 \\ \hline
+\end{tabular}
 
 With all the model parameters selected, our model selection process involves fitting the QDA model to the Pima Indians Diabetes dataset in two distinct ways:
 \begin{enumerate}

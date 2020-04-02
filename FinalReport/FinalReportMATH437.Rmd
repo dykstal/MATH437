@@ -127,10 +127,9 @@ In this case, 399 of the 532 observations are classified correctly, giving a mis
 [//]:       v)   Identify any Outliers                    %
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-TODO -> Perform these checks!
-1. Classes have >= obs as total features. Ref the table. Count the number of features.
-2. The covs have different cov matrices (model takes care of this).
-3. Multivariate normal. Hists.
+Now, we will check each of the three assumptions stated in Section 2.1 of this report. First, we must assume that classes have a number of observations greater than or equal to the total number of features in the model. As seen in the table in Section 2.2, both classes have at least INSERTNUMBER observations. This is greater than the total number of model features, which is eight (after all, one feature is presented for each covariate).
+
+Next, the capability for distinct covariates to have different covariance matrices is built into the QDA model; this assumption cannot be violated in this sense. So, we can proceed to checking our final assumption. This assumption -- which states that the INSERT -- requires us to look at the sample distributions of each covariate in our data.
 
 TODO -> formalize this.
 \begin{enumerate}

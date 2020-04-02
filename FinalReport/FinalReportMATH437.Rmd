@@ -77,11 +77,14 @@ where $k$ is either diabetic or non-diabetic, $p_k$ is the prior probability of 
 [//]: 1) Describe Procedures to Construct the Model       %
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-TODO -> PRIOR PARAMETER SELECTION JUSTIFICATION. Show dist of obs by class and argue from there.
+To begin fitting our QDA model, we must first select values for the model hyperparameters. In this case, the hyperparameters are the prior probabilties for the diabetic and non-diabetic classes. To estimate these prior distributions, we count the number of observations sampled in each category. The table below visualizes these counts.
+\begin{center}
 \begin{tabular}{|c|c|} \hline
 Diabetic & Non-Diabetic \\ \hline 
 177 & 355 \\ \hline
 \end{tabular}
+\end{center}
+TODO -> Explain prior choice, ie. SRS about 66, 33 split.
 
 With all the model parameters selected, our model selection process involves fitting the QDA model to the Pima Indians Diabetes dataset in two distinct ways:
 \begin{enumerate}

@@ -333,9 +333,7 @@ In this case, 410 of the 532 observations are classified correctly, giving a mis
 [//]:       v) Identify any Outliers                      %
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-DANKNUGGIES.
-
-TODO -> GUCCI? Answer should be yes... all covs are numberic, l2 norm will work for the data, and the hyperparam k was chosen responsibly. 
+Since all of the covariates are numeric, we can calculate distances between $\boldsymbol{x}$ and other covariate vectors. Thus, the conditions are satisfied to perform knn regression. Additionally, we made sure to pick the best value for k, as shown in section 4.2
 
 \newpage
 

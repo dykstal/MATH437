@@ -251,7 +251,7 @@ In this case, 415 of the 532 observations are classified correctly, giving a mis
 [//]:       v) Identify any Outliers                      %
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Finally, we  check the assumption of the absence of multicollinearity by plotting the covariates against one another. Upon looking at the below plots, we see no noticable trends, including linear trends. Therefore -- since no two covariates appear to be strongly linearly associated with each other (MAYBE EXCEPT THICC VS BMI LMAO) -- we conclude that this assumtion is valid. As such, we can conclude that Logistic Regression is reasonably appropriate for classifying the diabetic status of individuals in the Pima Indian population.
+Finally, we  check the assumption of the absence of multicollinearity by plotting the covariates against one another. Upon looking at the below plots, we see no noticable trends, including linear trends. One potential exception is the plot of Tricep Thickness vs. BMI. We concede that these two factors may be related, but visually, the linearity is not that strong. Therefore -- since no two covariates appear to be strongly linearly associated with each other -- we conclude that this assumtion is valid. As such, we can conclude that Logistic Regression is reasonably appropriate for classifying the diabetic status of individuals in the Pima Indian population.
 
 ![](/home/adykstal@corp.icr-team.com/MyGit/MATH437/FinalReport/covPlots1.png)
 

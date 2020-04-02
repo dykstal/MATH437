@@ -77,7 +77,7 @@ where $k$ is either diabetic or non-diabetic, $p_k$ is the prior probability of 
 [//]: 1) Describe Procedures to Construct the Model       %
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-TODO -> PRIOR PARAMETER SELECTION JUSTIFICATION.
+TODO -> PRIOR PARAMETER SELECTION JUSTIFICATION. Show dist of obs by class and argue from there.
 
 With all the model parameters selected, our model selection process involves fitting the QDA model to the Pima Indians Diabetes dataset in two distinct ways:
 \begin{enumerate}
@@ -127,15 +127,18 @@ In this case, 399 of the 532 observations are classified correctly, giving a mis
 [//]:       v)   Identify any Outliers                    %
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Below are the checks we performed for the validity assumptions.
+TODO -> Perform these checks!
+1. Classes have >= obs as total features. Ref the table. Count the number of features.
+2. The covs have different cov matrices (model takes care of this).
+3. Multivariate normal. Hists.
+
+TODO -> formalize this.
 \begin{enumerate}
 \item There are 177 observations in the smallest group (isDiabetic == 1), and only 8 variables, so this requirement is satisfied.
 \item We assume that each response class has a different covariance matrix.
 \item By separating the data into the two groups, and then constructing histograms of each variable, we can see which observations appear normally distributed within a particular class. Below is a figure containing these histograms. The first column contains data from all non-diabetic entries, and the second contains all diabetic entries. Then, each row is a particular variable. In order, the rows are "pregnancyNumber", "glucoseConcentration", "bloodPressure", "tricepThiccness", "serumInsulin", "BMI", "pedigreeFunction", and "age".
 
 \end{enumerate}
-
-TODO -> FIX THESE PLOTS
 
 ![](/home/adykstal@corp.icr-team.com/MyGit/MATH437/FinalReport/obsHist.png)
 
@@ -194,7 +197,7 @@ is greater than or equal to 0.5. Here, the vector $\boldsymbol{\hat{\beta}}$ is 
 [//]: 1) Describe Procedures to Construct the Model       %
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-TODO -> Explain maxit parameter choice.
+TODO -> Explain maxit parameter choice. Basically it's just that 10000 guarantees that we iterate a sufficient number of times.
 
 Our model selection process involves fitting the Logistic Regression model to the Pima Indians Diabetes dataset in two distinct ways:
 \begin{enumerate}
@@ -243,6 +246,7 @@ In this case, 415 of the 532 observations are classified correctly, giving a mis
 [//]:       v) Identify any Outliers                      %
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+TODO -> Explain only assumption left is absence of collinearity.
 DANKNUGGIES.
 
 TODO -> FIX THESE PLOTS TO MATCH CLEAN DATA/HAVE AXIS TITLES.
@@ -251,7 +255,7 @@ TODO -> FIX THESE PLOTS TO MATCH CLEAN DATA/HAVE AXIS TITLES.
 
 ![](/home/adykstal@corp.icr-team.com/MyGit/MATH437/FinalReport/covPlots2.png)
 
-TODO -> IS THE MODEL GUCCI?
+TODO -> IS THE MODEL GUCCI? yep. none of the covs look like they're correlated with others on a line.
 
 \newpage
 
@@ -339,7 +343,7 @@ In this case, 410 of the 532 observations are classified correctly, giving a mis
 
 DANKNUGGIES.
 
-TODO -> GUCCI?
+TODO -> GUCCI? Answer should be yes... all covs are numberic, l2 norm will work for the data, and the hyperparam k was chosen responsibly. 
 
 \newpage
 
@@ -354,7 +358,7 @@ TODO -> GUCCI?
 [//]:    Referencing the Review of the Analysis           %
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-In comparing the results of our three different methodologies, we summarize the results as follows: 
+Now that we have presented three different approaches to classify Type II diabetes among the Pima Indian female population, we can compare the results of these approaches. Summarized, the results among the approaches are as follows: 
 \begin{center}
 \begin{tabular}{|c|c|c|}\hline
          Method & Accuracy & Cross-Validated Accuracy\\\hline
@@ -363,9 +367,10 @@ In comparing the results of our three different methodologies, we summarize the 
                      $k$NN & 79.511\% & 77.067\%\\\hline
 \end{tabular}
 \end{center}
-Obviously the Logistic Regression method yields the best accuracy after cross-validation. 
+In this table, accuracy estimates are presented for each approach, both using the entire Pima Indians Diabetes dataset for training ("accuracy") and using leave-one-out cross-validation ("cross-validated accuracy"). 
 
-TODO -> JUSTIFY WHY WE USE CV (BIAS)
+To decide on the superior model, we choose the model that maximizes the cross-validated accuracy estimate. After all, using leave-one-out cross-validation to estimate the accuracy ensures that the observation we are classifying is not used to perform the classification. As such, the cross-validation method removes a small amount of bias from the accuracy estimator. We see that the Logistic Regression method yields the best accuracy after cross-validation with a cross-validated accuracy estimate of roughly 78.007\%. As such, we conclude that the Logistic Regression approach offers the most accurate means of classifying the Type II diabetic status of females in the Pima Indian population.
+
 TODO -> Apply result to the real-world
 TODO -> Summarize Checks of Assumptions/Model Appropriateness
 
@@ -450,6 +455,7 @@ group1 <- subset(BigChungus,
                  isDiabetic == 0)
 group2 <- subset(BigChungus,
                  isDiabetic == 1)
+par(mar = c(1, 1, 1, 1))
 par(mfrow = c(8, 2))
 for (i in 1:8) {
   hist(group1[,i],
@@ -616,7 +622,7 @@ misclassRate <- 1 - accuracy
 misclassRate
 
 # Check Assumption of Absence of Multicollinearity
-
+par(mar = c(1, 1, 1, 1))
 par(mfrow = c(7, 2))
 plot(BigChungus$pregnancyNumber, BigChungus$glucoseConcentration,
      col = "blue3", pch = 16,

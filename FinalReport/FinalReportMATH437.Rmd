@@ -31,7 +31,7 @@ In this report, we examine the "Pima Indians Diabetes Database", courtesy of the
   \item The individual's plasma glucose concentration over two hours in an oral glucose tolerance test.
   \item The individual's diastolic blood pressure in millimeters mercury (mm Hg).
   \item The individual's tricep skin fold thickness in millimeters (mm).
-  \item The two-hour serum insulin for the individual in micros per milliliter ($\mu$U/ml).
+  \item The two-hour serum insulin for the individual in micro units per milliliter ($\mu$U/ml).
   \item The individual's body mass index (BMI) in kilograms per meter squared (kg/m$^2$). 
   \item The value of the diabetes pedigree function\footnote{A function which scores a person's likelihood of diabetes from 0 to 1 according to family history of the disease.} for the individual.
   \item The individual's age in years.
@@ -39,17 +39,17 @@ In this report, we examine the "Pima Indians Diabetes Database", courtesy of the
 \end{itemize}
 These data were collected as part of a clinical research trial to determine which potential risk factors -- if any -- are most relevant to Type II diabetes in the Pima Indian population. [1] While we study the same data, our research objective differs.
 
-These data were cleaned by removing all datapoints which reported a value of zero for the BMI, the glucose concentration, the blood pressure, or the tricep thickness. After all, these values were entered into the dataset as placeholders. The original dataset had 768 observations in total, which was reduced to 532 after being cleaned.
-
-Our primary research objective focuses on comparing the efficacy of different of statistical learning methods to classify Type II diabetes among females in the Pima Indian population. Specifically, with each method, we classify the diabetic status of individual females in the Pima Indian population using the eight other attributes recorded in the dataset. Then, we estimate the accuracy of each method to determine if we can reasonably predict someone's Type II diabetic status from the variables recorded in the data. Finally, we compare the accuracies of the various classification methods to determine whether different statistical learning models make a noticeable difference in predicting an individual's diabetic status. 
+Our primary research objective focuses on comparing the efficacy of different statistical learning methods to classify Type II diabetes among females in the Pima Indian population. Specifically, with each method, we classify the diabetic status of individual females in the Pima Indian population using the eight other attributes recorded in the dataset. Then, we estimate the accuracy of each method to determine if we can reasonably predict someone's Type II diabetic status from the variables recorded in the data. Finally, we compare the accuracies of the various classification methods to determine whether different statistical learning models make a noticeable difference in predicting an individual's diabetic status. 
 
 In this report, we approach our research question with three distinct methods designed to address binary classification problems. These three methods are:
 \begin{enumerate}
-  \item Quadratic Discriminant Analysis (QDA).
-  \item Logistic Regression.
-  \item $k$-Nearest Neighbors ($k$NN).
+  \item Quadratic Discriminant Analysis (QDA)
+  \item Logistic Regression
+  \item $k$-Nearest Neighbors ($k$NN)
 \end{enumerate}
 For each of these methods, we cover the necessary model assumptions, our model construction procedures, the model results on the Pima Indians Diabetes dataset, and our model appropriateness \& limitations in the face of our research objective. Then, we draw comparisons between the performance of these three methods to offer data-driven solutions to our research objective. 
+
+These data were cleaned by removing all data points which reported a value of zero for the BMI, the glucose concentration, the blood pressure, or the tricep thickness. After all, these values were entered into the dataset as placeholders. The original dataset had 768 observations in total, which was reduced to 532 after being cleaned.
 
 # 2 \hspace{0.25cm} The Quadratic Discriminant Analysis Approach
 ## 2.1 \hspace{0.25cm} Assumptions
@@ -61,30 +61,30 @@ For each of these methods, we cover the necessary model assumptions, our model c
 To ensure the validity of its modeling, we must make the following assumptions for the Quadratic Discriminant Analysis (QDA) approach:
 \begin{enumerate}
   \item Each group (class) has at least as many entries as there are total features in the model. [2]
-  \item The covariates -- stratified by each of the classes in the response -- have different covariance matrices. In our case, there are only two classes: diabetic and non-diabetic. Thus, there is a covariance matrix for covariates corresponding to diabetic observations ($\Sigma_{\text{diabetic}}$) and covariates corresponding to non-diabetic observations ($\Sigma_{\text{non-diabetic}}$).
+  \item The covariates (features) -- stratified by each of the classes in the response -- have different covariance matrices. In our case, there are only two classes: diabetic and non-diabetic. Thus, there is a covariance matrix for covariates corresponding to diabetic observations ($\Sigma_{\text{diabetic}}$) and covariates corresponding to non-diabetic observations ($\Sigma_{\text{non-diabetic}}$).
   \item The observations in each of the response classes are normally distributed with a class-specific mean and class-specific variance. That is, the distributions of each individual covariate -- stratified by class -- is normally distributed. But, these normal distributions need not be the same.
 \end{enumerate}
 We can summarize the final two assumptions listed above by saying that the diabetic and non-diabetic groups are distributed multivariate normal with the diabetic group having mean $\boldsymbol{\mu}_{\text{diabetic}}$ and covariance $\Sigma_{\text{diabetic}}$ and the non-diabetic group having mean $\boldsymbol{\mu}_{\text{non-diabetic}}$ and covariance $\Sigma_{\text{non-diabetic}}$.
 
 With these assumptions, the QDA classifier works by choosing the group that minimizes the quantity
 \begin{equation*}
-  \log| \Sigma_k | + (\boldsymbol{x} - \boldsymbol{\mu}_k)^T \Sigma_k^{-1} (\boldsymbol{x} - \boldsymbol{\mu}_k) - 2 \log p_k,
+  \log| \Sigma_k | + (\boldsymbol{x} - \boldsymbol{\mu}_k)^T \Sigma_k^{-1} (\boldsymbol{x} - \boldsymbol{\mu}_k) - 2 \log P_k,
 \end{equation*}
-where $k$ is either diabetic or non-diabetic, $p_k$ is the prior probability of class $k$, and $\boldsymbol{x}$ are the covariates for the item to be classified. Ultimately, we do not know $\boldsymbol{\mu}_k$ and $\Sigma_k$ for any class, so we replace them with their sample counterparts. These sample statistics are constructed from the training data, which are labeled and have the same covariates as the item to be classified.
+where $k$ is either diabetic or non-diabetic, $P_k$ is the prior probability of class $k$, and $\boldsymbol{x}$ are the covariates for the item to be classified. Ultimately, we do not know $\boldsymbol{\mu}_k$ and $\Sigma_k$ for any class, so we replace them with their sample counterparts. These sample statistics are constructed from the training data, which are labeled and have the same covariates as the item to be classified.
 
 ## 2.2 \hspace{0.25cm} Model Construction Methods
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 [//]: 1) Describe Procedures to Construct the Model       %
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-To begin fitting our QDA model, we must first select values for the model hyperparameters. In this case, the hyperparameters are the prior probabilties for the diabetic and non-diabetic classes. To estimate these prior distributions, we count the number of observations sampled in each category. The table below visualizes these counts.
+To begin fitting our QDA model, we must first select values for the model hyperparameters. In this case, the hyperparameters are the prior probabilties for the diabetic and non-diabetic classes. To estimate these priors, we count the number of observations sampled in each category. The table below visualizes the result.
 \begin{center}
 \begin{tabular}{|c|c|} \hline
 Diabetic & Non-Diabetic \\ \hline 
 177 & 355 \\ \hline
 \end{tabular}
 \end{center}
-To find the prior probabilities of each class, we find the sample proportion of observations in the data set belonging to each class. Doing so, we find that roughly 33.271\% of the observations belong to the diabetic class and roughly 66.729\% belong to the non-diabetic class. As such, we estimate the prior probability of the diabetic class as $p_{\text{diabetic}} = 0.33$ and we estimate the prior probability of the non-diabetic class as $p_{\text{diabetic}} = 0.67$.
+To find the prior probabilities of each class, we find the sample proportion of observations in the data set belonging to each class. Doing so, we find that roughly 33.271\% of the observations belong to the diabetic class and roughly 66.729\% belong to the non-diabetic class. As such, we estimate the prior probability of the diabetic class as $P_{\text{diabetic}} = 0.33$ and we estimate the prior probability of the non-diabetic class as $P_{\text{non-diabetic}} = 0.67$.
 
 With all the model parameters selected, our model selection process involves fitting the QDA model to the Pima Indians Diabetes dataset in two distinct ways:
 \begin{enumerate}
@@ -100,7 +100,7 @@ In both of these cases, we keep track of the number of correctly classified and 
 [//]:    Problem of Interest                              %
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-After fitting QDA model to the Pima Indians Diabetes dataset, we predict the classifications for each of the individuals in the data. When using the entire data set to both train and test the model, the confusion matrix (with actual values on the rows and predicted values on the columns) is:
+After fitting our QDA model to the Pima Indians Diabetes dataset, we predict the classifications for each of the individuals in the data. When using the entire data set to both train and test the model, the confusion matrix (with actual values on the rows and predicted values on the columns) is:
 \begin{center}
 \begin{tabular}{c|c|c} 
                 & Diabetic & Non-Diabetic \\\hline
@@ -142,7 +142,7 @@ On the following page, we plot histograms for each of the features (covariates) 
 
 ![](/home/adykstal@corp.icr-team.com/MyGit/MATH437/FinalReport/obsHist.png)
 
-From these plots, we can see that the number of pregnancies ("pregnancyNumber"), the two-hour serum insulin ("serumInsulin"), and the age ("age") are clearly non-normally distributed. The remaining features could reasonably be normally-distributed in the sample. As such, we will re-fit the QDA model, this time omitting the covariates that clearly violate the assumption of normality.
+From these plots, we can see that the number of pregnancies ("pregnancyNumber"), the two-hour serum insulin ("serumInsulin"), and the age ("age") are clearly non-normally distributed. The remaining features could reasonably be normally-distributed in the sample. As such, we re-fit the QDA model, this time omitting the covariates that clearly violate the assumption of normality.
 
 Upon removing the violating covariates, our new confusion matrix for the QDA model (using the entire data set as the training and testing set) is:
 \begin{center}
@@ -164,6 +164,10 @@ When using leave-one-out cross validation, the confusion matrix (with actual val
 \end{center}
 In this case, 407 of the 532 observations are classified correctly, giving a misclassification rate of roughly 23.497\% and an accuracy of about 76.503\%. This suggests that -- if we were to classify a random sample of 100 new females from the Pima Indian population -- we would expect to correctly classify the diabetic status of about 77 individuals and incorrectly classify the remaining 23.
 
+We now discuss the limitations of the QDA approach. First, we note that we check the normality of the covariates by looking at histograms of their sample distributions, stratified by class. While this visual method for checking normality is often sufficiently robust, it is plausible that the covariates are not actually normally distributed, even when they appear to be in-sample. This means that the assumption of normal covariates could be violated, despite our checks.
+
+Similarly, the prior probabilities we select are based on sample proportions of the data belonging to each class. While this offers an estimate of the prior probabilities, our method of estimation is still entirely subjective and could add misleading bias to the model if it is incorrect.
+
 \newpage
 
 # 3 \hspace{0.25cm} The Logistic Regression Approach
@@ -182,11 +186,11 @@ The logistic regression approach to binary classification problems requires the 
 \end{enumerate}
 According to our logistic regression model, we define the success probability for each observation as
 \begin{equation*}
-  p = \frac{\exp(\beta_0 + \beta_1x_1 + \cdots + \beta_px_k)}{1 + \exp(\beta_0 + \beta_1x_1 + \cdots + \beta_px_k)} = \frac{\exp(\boldsymbol{\beta}^T\boldsymbol{x})}{1 + \exp(\boldsymbol{\beta}^T\boldsymbol{x})}.
+  P = \frac{\exp(\beta_0 + \beta_1x_1 + \cdots + \beta_px_k)}{1 + \exp(\beta_0 + \beta_1x_1 + \cdots + \beta_px_k)} = \frac{\exp(\boldsymbol{\beta}^T\boldsymbol{x})}{1 + \exp(\boldsymbol{\beta}^T\boldsymbol{x})}.
 \end{equation*}
 Above, $\boldsymbol{x}$ is the vector listing the $k$ covariates for the item to be classified and $\boldsymbol{\beta}$ is the vector of parameters. In this case, a success for each Bernoulli trial is considered testing positive for Type II diabetes. With this said, our logistic regression model classifies individual observations as Type II diabetic if the quantity
 \begin{equation*}
-    \hat{p} = \dfrac{\exp \left( \boldsymbol{\hat{\beta}}^T \boldsymbol{x} \right)}{1 + \exp \left( \boldsymbol{\hat{\beta}}^T \boldsymbol{x} \right)}
+    \hat{P} = \dfrac{\exp \left( \boldsymbol{\hat{\beta}}^T \boldsymbol{x} \right)}{1 + \exp \left( \boldsymbol{\hat{\beta}}^T \boldsymbol{x} \right)}
 \end{equation*}
 is greater than or equal to 0.5. Here, the vector $\boldsymbol{\hat{\beta}}$ is the maximum likelihood estimator for the parameters $\boldsymbol{\beta}$. This estimator $\boldsymbol{\hat{\beta}}$ maximizes the likelihood function for $\boldsymbol{\beta}$.
 
@@ -198,7 +202,7 @@ is greater than or equal to 0.5. Here, the vector $\boldsymbol{\hat{\beta}}$ is 
 Our model selection process involves fitting the Logistic Regression model to the Pima Indians Diabetes dataset in two distinct ways:
 \begin{enumerate}
   \item First, we fit the Logistic Regression model to the entire dataset. That is, we use each observation for training and testing. In the context of Logistic Regression, this means that -- for an individual we want to classify -- the likelihood that the individual belongs in a given class is calculated using a set of observations that includes the individual. 
-  \item We continue by choosing the hyper-parameter \texttt{maxit}. The \texttt{maxit} is the maximum number of itterations in the algorithm's search for the minimum of the liklihood. We choose \texttt{maxit} as 10,000 because it finds a balance in computational feasibility and accuracy.  
+  \item We continue by choosing the hyperparameter \texttt{maxit}. The \texttt{maxit} is the maximum number of iterations in the algorithm's search for the minimum of the likelihood. We choose \texttt{maxit} as 10,000 because it finds a balance in computational feasibility and accuracy.  
   \item Next, we fit the Logistic Regression model to the dataset using leave-one-out cross-validation. That is, for each observation in our data, we predict that point from the model that is trained on every other point. In the context of Logistic Regression, leave-one-out cross validation ensures that the likelihood for an individual's class membership is independent of that individual's associated label and covariates.
 \end{enumerate}
 As with our QDA approach, we keep track of the number of correctly classified and incorrectly classified observations for each group in either of the cases above. That way, we can still construct a confusion matrix and compute the experimental accuracy and misclassification rate to estimate the goodness-of-fit for our Logistic Regression model.
@@ -243,13 +247,13 @@ In this case, 415 of the 532 observations are classified correctly, giving a mis
 [//]:       v) Identify any Outliers                      %
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Finally, we  check the assumption of the absence of multicollinearity by plotting the covariates against one another. Upon looking at the below plots, we see one potential exception, that being the plot of tricep fold thickness versus BMI. In this plot, we concede that these two factors may be related in a linear fashion.
+Finally, we  check the assumption of the absence of multicollinearity by plotting the covariates against one another. Upon looking at the below plots, we see one potential exception, that being, the plot of tricep fold thickness versus BMI. In this plot, we concede that these two factors may be related in a linear fashion.
 
 ![](/home/adykstal@corp.icr-team.com/MyGit/MATH437/FinalReport/covPlots1.png)
 
 ![](/home/adykstal@corp.icr-team.com/MyGit/MATH437/FinalReport/covPlots2.png)
 
-We remove BMI as an explainatory covariate, since tricep fold thickness is a better gauge of body composition and the two covariates could reasonably be collinear. Then, we re-fit our Logistic Regression model to the data without the BMI. Upon doing so, we recalculate the confusion matrix, misclassification rate, and accuracy as before.
+We remove BMI as an explanatory covariate, since tricep fold thickness is a better gauge of body composition and the two covariates could reasonably be collinear. Then, we re-fit our Logistic Regression model to the data without the BMI. Upon doing so, we recalculate the confusion matrix, misclassification rate, and accuracy as before.
 
 After fitting the Logistic Regression model to the Pima Indians Diabetes dataset, we predict the classifications for each of the individuals in the data. When using the entire data set to both train and test the model, the confusion matrix (with actual values on the rows and predicted values on the columns) is:
 \begin{center}
@@ -270,6 +274,10 @@ When using leave-one-out cross validation, the confusion matrix (with actual val
 \end{tabular}
 \end{center}
 In this case, 414 of the 532 observations are classified correctly, giving a misclassification rate of roughly 22.180\% and an accuracy of about 77.820\%. This suggests that -- if we were to classify a random sample of 100 new females from the Pima Indian population -- we would expect to correctly classify the diabetic status of about 78 individuals and incorrectly classify the remaining 22.
+
+Now, we discuss the limitations of our Logistic Regression approach. First, it is possible that -- for every observation that we classify -- the likelihood estimates for class membership are very similar. For instance, the likelihood that the observation belongs to the diabetic class could be roughly 51\% while the likelihood that the observation belongs to the non-diabetic class could be roughly 49\%. In this case, our classification has a large amount of uncertainty. So, if this is the case, our model could be overfit to the training data and perform poorly on the testing data. We likely surmount this limitation by estimating the misclassification rate using leave-one-out cross-validation, which tends to mitigate some overfitting. Still, it is a possible limitation to our model that is worth considering.
+
+Given our careful attention to checking the model assumptions, it seems highly unlikely that there are other significant limitations to our Logistic Regression approach. 
 
 \newpage
 
@@ -355,7 +363,11 @@ In this case, 410 of the 532 observations are classified correctly, giving a mis
 [//]:       v) Identify any Outliers                      %
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Since all of the covariates are numeric, we can calculate distances between $\boldsymbol{x}$ and other covariate vectors. Thus, the conditions are satisfied to perform $k$NN regression. Additionally, we made sure to select the "best" value for the hyperparameter $k$ using 10-fold cross-validation, as shown in section 4.2. These measures to promote the accuracy of our model assure that it is appropriate. Since the model is otherwise non-parametric and without assumptions, there is nothing left to check.
+Since all of the covariates are numeric, we can calculate distances between $\boldsymbol{x}$ and other covariate vectors. Thus, the conditions are satisfied to perform $k$NN regression. Additionally, we made sure to select the "best" value for the hyperparameter $k$ using 10-fold cross-validation, as shown in Section 4.2. These measures to promote the accuracy of our model assure that it is appropriate. Since the model is otherwise non-parametric and without assumptions, there is nothing left to check.
+
+We now discuss the potential limitations of our $k$NN approach. In practice, $k$NN tends to provide accurate results provided that items closer in covariate distance are actually more likely to be in the same class. In the Pima Indians Diabetes data set, this may not be the case. For instance, consider the age and blood pressure covariates. While Type II diabetes \emph{may} be linked to certain age groups or blood pressure groups, it is also possible that there is no connection between diabetic status and these predictors. In the case that closer covariate values do not actually affect the membership of individuals in a particular class, the primary assumption of $k$NN is violated and our model is not appropriate.
+
+Additionally, the $k$NN algorithm can be computationally expensive when datasets become large. We circumvent this limitation by using a reasonably small training data set with 532 observations. But, if we were to collect new data and re-fit the model, we could experience much slower performance times.
 
 \newpage
 
@@ -382,10 +394,9 @@ Now that we have presented three different approaches to classify Type II diabet
 \end{center}
 In this table, accuracy estimates are presented for each approach, both using the entire Pima Indians Diabetes dataset for training ("accuracy") and using leave-one-out cross-validation ("cross-validated accuracy"). 
 
-To decide on the superior model, we choose the model that maximizes the cross-validated accuracy estimate. After all, using leave-one-out cross-validation to estimate the accuracy ensures that the observation we are classifying is not used to perform the classification. As such, the cross-validation method removes a small amount of bias from the accuracy estimator. We see that the Logistic Regression method yields the best accuracy after cross-validation with a cross-validated accuracy estimate of roughly 78.007\%. As such, we conclude that the Logistic Regression approach offers the most accurate means of classifying the Type II diabetic status of females in the Pima Indian population.
+To decide on the superior model, we choose the model that maximizes the cross-validated accuracy estimate. After all, using leave-one-out cross-validation to estimate the accuracy ensures that the observation we are classifying is not used to perform the classification. As such, the cross-validation method removes a small amount of bias from the accuracy estimator. We see that the Logistic Regression method yields the best accuracy after cross-validation with a cross-validated accuracy estimate of roughly 77.820\%. As such, we conclude that the Logistic Regression approach offers the most accurate means of classifying the Type II diabetic status of females in the Pima Indian population.
 
-TODO -> Apply result to the real-world
-TODO -> Summarize Checks of Assumptions/Model Appropriateness
+In the context of our research question, we conclude that all three tested approaches offer reasonably accurate models to classify the diabetic status of females in the Pima Indian population. Each model possesses its own advantages and limitations, but the Logistic Regression approach seems to have the fewest violations of assumptions and the best accuracy. As such, if we were to classify the diabetic status of new females in the Pima Indian tribe, we would employ the Logistic Regression model presented in Section 3.
 
 \newpage
 

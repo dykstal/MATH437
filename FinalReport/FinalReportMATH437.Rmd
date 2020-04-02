@@ -39,6 +39,8 @@ In this report, we examine the "Pima Indians Diabetes Database", courtesy of the
 \end{itemize}
 These data were collected as part of a clinical research trial to determine which potential risk factors -- if any -- are most relevant to Type II diabetes in the Pima Indian population. [1] While we study the same data, our research objective differs.
 
+The data was cleaned by removing all datapoints which reported a zero for BMI, glucose concentration, blood pressure, or tricep thickness, as these values were entered as placeholders. The original dataset had 768 observations, which was reduced to 532 after being cleaned.
+
 Our primary research objective focuses on comparing the efficacy of different of statistical learning methods to classify Type II diabetes among females in the Pima Indian population. Specifically, with each method, we classify the diabetic status of individual females in the Pima Indian population using the eight other attributes recorded in the dataset. Then, we estimate the accuracy of each method to determine if we can reasonably predict someone's Type II diabetic status from the variables recorded in the data. Finally, we compare the accuracies of the various classification methods to determine whether different statistical learning models make a noticeable difference in predicting an individual's diabetic status. 
 
 In this report, we approach our research question with three distinct methods designed to address binary classification problems. These three methods are:
@@ -78,6 +80,10 @@ where $k$ is either diabetic or non-diabetic, $p_k$ is the prior probability of 
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 TODO -> PRIOR PARAMETER SELECTION JUSTIFICATION. Show dist of obs by class and argue from there.
+\begin{tabular}{|c|c|} \hline
+Diabetic & Non-Diabetic \\ \hline 
+177 & 355 \\ \hline
+\end{tabular}
 
 With all the model parameters selected, our model selection process involves fitting the QDA model to the Pima Indians Diabetes dataset in two distinct ways:
 \begin{enumerate}
@@ -197,10 +203,11 @@ is greater than or equal to 0.5. Here, the vector $\boldsymbol{\hat{\beta}}$ is 
 [//]: 1) Describe Procedures to Construct the Model       %
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+TODO -> Explain maxit parameter choice. Basically it's just that 10000 guarantees that we iterate a sufficient number of times.
+
 Our model selection process involves fitting the Logistic Regression model to the Pima Indians Diabetes dataset in two distinct ways:
 \begin{enumerate}
   \item First, we fit the Logistic Regression model to the entire dataset. That is, we use each observation for training and testing. In the context of Logistic Regression, this means that -- for an individual we want to classify -- the likelihood that the individual belongs in a given class is calculated using a set of observations that includes the individual. 
-  \item We continue by choosing the hyper-parameter \texttt{maxit} as 10000. Through trial and error, we know that as \texttt{maxit} increases, the local minimum stabilizes our estimation of the liklihood. We find 10000 to be a good balance of computational feasibility and accuracy.    
   \item Next, we fit the Logistic Regression model to the dataset using leave-one-out cross-validation. That is, for each observation in our data, we predict that point from the model that is trained on every other point. In the context of Logistic Regression, leave-one-out cross validation ensures that the likelihood for an individual's class membership is independent of that individual's associated label and covariates.
 \end{enumerate}
 As with our QDA approach, we keep track of the number of correctly classified and incorrectly classified observations for each group in either of the cases above. That way, we can still construct a confusion matrix and compute the experimental accuracy and misclassification rate to estimate the goodness-of-fit for our Logistic Regression model.

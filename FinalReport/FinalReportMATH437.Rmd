@@ -39,6 +39,8 @@ In this report, we examine the "Pima Indians Diabetes Database", courtesy of the
 \end{itemize}
 These data were collected as part of a clinical research trial to determine which potential risk factors -- if any -- are most relevant to Type II diabetes in the Pima Indian population. [1] While we study the same data, our research objective differs.
 
+The data was cleaned by removing all datapoints which reported a zero for BMI, glucose concentration, blood pressure, or tricep thickness, as these values were entered as placeholders. The original dataset had 768 observations, which was reduced to 532 after being cleaned.
+
 Our primary research objective focuses on comparing the efficacy of different of statistical learning methods to classify Type II diabetes among females in the Pima Indian population. Specifically, with each method, we classify the diabetic status of individual females in the Pima Indian population using the eight other attributes recorded in the dataset. Then, we estimate the accuracy of each method to determine if we can reasonably predict someone's Type II diabetic status from the variables recorded in the data. Finally, we compare the accuracies of the various classification methods to determine whether different statistical learning models make a noticeable difference in predicting an individual's diabetic status. 
 
 In this report, we approach our research question with three distinct methods designed to address binary classification problems. These three methods are:

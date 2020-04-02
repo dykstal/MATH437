@@ -258,6 +258,19 @@ Finally, we  check the assumption of the absence of multicollinearity by plottin
 [//]: 2) Preview the Checks of Assumptions                %
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+```
+   class
+      0   1
+  0 317  38
+  1  74 103
+[1] 0.2105263
+   pcv
+      0   1
+  0 314  41
+  1  77 100
+[1] 0.2218045
+```
+
 The $k$-nearest neighbors approach explicitly assumes that observations are more likely to belong to the same class if their covariate values are closer in distance. To make this assumption, we must also assume that, for the vector $\boldsymbol{x}$ of covariates corresponding to an item to be classified:
 \begin{enumerate}
   \item We have a \emph{labeled} training set of $p$ examples with labels (classifications) $y_1, \ldots, y_p$ and corresponding covariates $\boldsymbol{x}_1, \ldots, \boldsymbol{x}_p$;
@@ -333,7 +346,7 @@ In this case, 410 of the 532 observations are classified correctly, giving a mis
 [//]:       v) Identify any Outliers                      %
 [//]: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Since all of the covariates are numeric, we can calculate distances between $\boldsymbol{x}$ and other covariate vectors. Thus, the conditions are satisfied to perform knn regression. Additionally, we made sure to pick the best value for k, as shown in section 4.2
+Since all of the covariates are numeric, we can calculate distances between $\boldsymbol{x}$ and other covariate vectors. Thus, the conditions are satisfied to perform $k$NN regression. Additionally, we made sure to select the "best" value for the hyperparameter $k$ using 10-fold cross-validation, as shown in section 4.2. These measures to promote the accuracy of our model assure that it is appropriate. Since the model is otherwise non-parametric and without assumptions, there is nothing left to check.
 
 \newpage
 
@@ -757,18 +770,18 @@ plot(BigChungus$pedigreeFunction, BigChungus$age,
      ylab = "Age of Person Observed",
      main = "Diabetic Pedigree Function vs. Age")
 ```
-Because of the potenital collinearity between the BMI and the FINISH ME FUCK.
-```{r}
+Because of the potenital collinearity between the BMI and the tricep fold thickness, we remove the BMI from consideration and fit the model again.
+```{r, eval = FALSE}
 # Bring in the NNET Library for Logistic Regression
 library(nnet)
 
 # Begin Classifying by Logistic Regression
 lrFit <- multinom(isDiabetic ~ .,
-                  data = BigChungus,
+                  data = BigChungus[, -6],
                   trace = FALSE,
                   maxit = 10000)
 coe <- summary(lrFit)$coefficients
-LittleChungus <- BigChungus[-9]
+LittleChungus <- BigChungus[,-c(6,9)]
 nman <- t(LittleChungus)
 logodds <- coe[1] + coe[-1] %*% nman
 logodds <- cbind(0, t(logodds))
@@ -793,11 +806,11 @@ pcv <- rep(0, n)
 
 for (i in 1:n) {
   lrFit <- multinom(isDiabetic ~ .,
-                    data = BigChungus[-i,],
+                    data = BigChungus[-i,-6],
                     trace = FALSE,
                     maxit = 10000)
   coe <- summary(lrFit)$coefficients
-  tman <- t(BigChungus[i,-9])
+  tman <- t(BigChungus[i,-c(6,9)])
   logodds <- coe[1] + coe[-1] %*% tman
   logodds <- cbind(0, t(logodds))
   pcv[i] <- which.max(logodds) - 1
